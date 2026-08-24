@@ -1,0 +1,647 @@
+<meta charset="utf-8">
+<title>온새누리장터 공동구매 안내</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@300;400;500;600&display=swap">
+
+<style>
+/* ---------- tokens ---------- */
+:root{
+  --desk:#D6D8D0; --desk-2:#C8CBC2;
+  --page:#FAFAF6; --page-2:#F2F2EB;
+  --ink:#16211C; --ink-2:#4C5A53; --ink-3:#7C8981;
+  --accent:#0E5C4F; --accent-soft:#E7EEEA; --brass:#A5731F;
+  --rule:rgba(22,33,28,.16); --rule-2:rgba(22,33,28,.08);
+  --bar-ink:#2C3630; --bar-line:rgba(22,33,28,.18); --focus:#0E5C4F;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --desk:#0D100F; --desk-2:#141817; --page:#1A1E1C; --page-2:#161A18;
+    --ink:#E4E8E2; --ink-2:#A3AEA7; --ink-3:#77837C;
+    --accent:#63C3A9; --accent-soft:#1E2E2A; --brass:#D2A44B;
+    --rule:rgba(228,232,226,.20); --rule-2:rgba(228,232,226,.10);
+    --bar-ink:#C4CDC7; --bar-line:rgba(228,232,226,.16); --focus:#63C3A9;
+  }
+}
+:root[data-theme="dark"]{
+  --desk:#0D100F; --desk-2:#141817; --page:#1A1E1C; --page-2:#161A18;
+  --ink:#E4E8E2; --ink-2:#A3AEA7; --ink-3:#77837C;
+  --accent:#63C3A9; --accent-soft:#1E2E2A; --brass:#D2A44B;
+  --rule:rgba(228,232,226,.20); --rule-2:rgba(228,232,226,.10);
+  --bar-ink:#C4CDC7; --bar-line:rgba(228,232,226,.16); --focus:#63C3A9;
+}
+
+*{ box-sizing:border-box; }
+html,body{ height:100%; }
+body{
+  margin:0;
+  background:radial-gradient(120% 90% at 50% 0%, var(--desk-2) 0%, var(--desk) 62%), var(--desk);
+  color:var(--ink);
+  font-family:"IBM Plex Sans KR","Apple SD Gothic Neo",system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  display:flex; flex-direction:column; overflow:hidden;
+}
+
+/* ---------- chrome ---------- */
+.topbar{ flex:0 0 auto; display:flex; align-items:center; gap:.6rem; padding:.85rem 1.15rem .7rem; color:var(--bar-ink); }
+.topbar .logoph-sm{ width:22px; height:22px; flex:0 0 auto; border:1px dashed var(--bar-line); border-radius:5px; }
+.topbar .nm{ font-family:"Gowun Batang",serif; font-size:.98rem; letter-spacing:.02em; }
+.topbar .sep{ width:1px; height:12px; background:var(--bar-line); }
+.topbar .sub{ font-family:"IBM Plex Mono",monospace; font-size:.66rem; letter-spacing:.14em; color:var(--ink-3); }
+
+/* ---------- deck ---------- */
+.stage{ flex:1 1 auto; display:flex; align-items:center; justify-content:center; position:relative; min-height:0; }
+.deck{
+  --ph: min( calc(100vh - 10.4rem), calc((100vw - 2.6rem) * 1.414), 780px );
+  --pw: calc(var(--ph) / 1.414);
+  width:var(--pw); height:var(--ph);
+  overflow:hidden; position:relative; cursor:grab; touch-action:pan-y;
+  user-select:none; -webkit-user-select:none;
+  box-shadow:0 18px 40px rgba(0,0,0,.26), 0 2px 8px rgba(0,0,0,.14);
+}
+@supports (height:100svh){ .deck{ --ph: min( calc(100svh - 10.4rem), calc((100vw - 2.6rem) * 1.414), 780px ); } }
+.deck.dragging{ cursor:grabbing; }
+
+.track{
+  display:flex; height:100%;
+  transform:translate3d(calc(var(--i,0) * -100% + var(--dx,0px)),0,0);
+  transition:transform .46s cubic-bezier(.32,.72,.3,1); will-change:transform;
+}
+.track.no-anim{ transition:none; }
+@media (prefers-reduced-motion: reduce){ .track{ transition-duration:.001ms; } }
+
+.slide{
+  flex:0 0 100%; width:100%; height:100%;
+  background:linear-gradient(200deg,var(--page) 0%,var(--page-2) 100%);
+  box-shadow:inset 3px 0 0 -2px var(--rule-2);
+  overflow:hidden; display:flex; flex-direction:column;
+  font-size:calc(var(--pw) / 28); line-height:1.62; color:var(--ink);
+}
+
+/* ---------- page interior ---------- */
+.pg{ position:relative; flex:1 1 auto; display:flex; flex-direction:column; padding:2.4em 2.4em 1.4em; }
+
+.eyebrow{
+  display:flex; align-items:center; gap:.8em;
+  font-family:"IBM Plex Mono",monospace; font-size:.62em; letter-spacing:.18em; color:var(--accent);
+}
+.eyebrow .ln{ flex:1 1 auto; height:1px; background:var(--rule); }
+.pno{ color:var(--brass); letter-spacing:.1em; }
+
+.eyebrow + h2.t{ margin-top:1.5em; }
+.kicker-p{ font-size:.74em; color:var(--ink-3); font-weight:300; margin-top:1.5em; letter-spacing:.02em; }
+h2.t{
+  font-family:"Gowun Batang",serif; font-weight:700;
+  font-size:1.66em; line-height:1.28; margin:.16em 0 0;
+  letter-spacing:-.01em; text-wrap:balance;
+}
+.pspec{
+  font-family:"IBM Plex Mono",monospace; font-size:.66em; letter-spacing:.05em;
+  color:var(--ink-2); margin-top:.7em;
+}
+
+.body{ flex:1 1 auto; margin-top:1.4em; display:flex; flex-direction:column; gap:1em; min-height:0; }
+.grow{ flex:1 1 auto; }
+
+.catch{
+  margin:auto 0 0; font-size:.8em; font-weight:300; line-height:1.62; color:var(--ink-2);
+  padding-left:.9em; border-left:2px solid var(--accent-soft);
+}
+.catch::before{ content:'“'; }
+.catch::after{ content:'”'; }
+
+.shots{ flex:0 0 auto; margin-bottom:auto; display:grid; gap:.5em; }
+.shots.s2{ grid-template-columns:1fr 1fr; }
+.shots.s3{ grid-template-columns:repeat(3,1fr); }
+.shot{
+  margin:0; aspect-ratio:4/5; border:1px dashed var(--rule); border-radius:.28em;
+  background:var(--accent-soft);
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.4em;
+  color:var(--ink-3); min-height:0;
+}
+.shot svg{ width:1.5em; height:1.5em; opacity:.7; }
+.shot figcaption{ font-family:"IBM Plex Mono",monospace; font-size:.58em; letter-spacing:.12em; }
+
+.tagline{
+  margin:0; font-size:.78em; font-weight:400; color:var(--ink);
+  line-height:1.55; text-wrap:balance;
+}
+
+.storebar{
+  display:flex; align-items:center; gap:.6em; text-decoration:none; color:inherit;
+  border:1px solid var(--rule); border-radius:.3em; padding:.5em .6em;
+  transition:border-color .18s, background .18s;
+}
+.storebar:hover{ border-color:var(--accent); background:var(--accent-soft); }
+.storebar .nmark{ width:1.35em; height:1.35em; flex:0 0 auto; display:block; }
+.storebar .nmark svg{ width:100%; height:100%; display:block; }
+.storebar .slabel{ flex:1 1 auto; font-size:.72em; color:var(--ink-2); font-weight:300; }
+.storebar .slabel b{ color:var(--ink); font-weight:500; }
+.storebar .go{
+  display:inline-flex; align-items:center; gap:.35em;
+  font-family:"IBM Plex Mono",monospace; font-size:.6em; letter-spacing:.1em; color:var(--accent);
+}
+.storebar .go svg{ width:.9em; height:.9em; }
+
+.folio{
+  flex:0 0 auto; display:flex; align-items:center; gap:.7em;
+  padding-top:.8em; margin-top:1em; border-top:1px solid var(--rule-2);
+  font-family:"IBM Plex Mono",monospace; font-size:.6em; letter-spacing:.14em; color:var(--ink-3);
+}
+.folio .num{ color:var(--ink-2); }
+.folio .fl{ flex:1 1 auto; }
+
+.creed{ display:flex; flex-direction:column; gap:.3em; font-family:"Gowun Batang",serif; font-size:1.2em; line-height:1.6; color:var(--ink); }
+.creed span:last-child{ color:var(--accent); }
+
+.note{ font-size:.66em; color:var(--ink-3); font-weight:300; line-height:1.55; margin:0; }
+.kv{ display:flex; flex-direction:column; gap:.5em; }
+.kv div{ display:flex; gap:.8em; font-size:.74em; }
+.kv b{ flex:0 0 7.6em; white-space:nowrap; font-weight:400; font-family:"IBM Plex Mono",monospace; font-size:.86em; letter-spacing:.04em; }
+.kv span{ font-weight:300; }
+
+/* ---------- 표제부 / 맺음말 ---------- */
+.cover{ background:linear-gradient(168deg,#0E5C4F 0%,#093F36 58%,#062B25 100%); color:#EFF4F1; }
+.cover .pg{ justify-content:space-between; }
+/* 로고 자리표시 — 실제 로고 이미지가 들어갈 자리 */
+.logoph{
+  display:flex; align-items:center; justify-content:center;
+  border:1px dashed rgba(255,255,255,.34); border-radius:.28em;
+  width:6em; height:3.2em; color:#9FC4B7;
+}
+.logoph span{ font-family:"IBM Plex Mono",monospace; font-size:.58em; letter-spacing:.18em; }
+.backcov .logoph{ width:5.2em; height:2.8em; }
+.cover .hair{ height:1px; background:rgba(255,255,255,.22); margin:1.1em 0; }
+.cover .kicker{ font-family:"IBM Plex Mono",monospace; font-size:.6em; letter-spacing:.26em; color:#9FC4B7; text-transform:uppercase; }
+.cover h1{ font-family:"Gowun Batang",serif; font-weight:700; font-size:2.5em; line-height:1.2; margin:.3em 0 0; letter-spacing:-.02em; color:#FFFFFF; }
+.cover .title2{ font-family:"Gowun Batang",serif; font-size:1.1em; line-height:1.6; color:#E6D6AE; margin-top:.9em; }
+.cover .cover-msg{ font-size:.74em; font-weight:300; line-height:1.75; color:#C3D8D0; margin:0; }
+.cover .storebar{ border-color:rgba(255,255,255,.28); margin-top:1.1em; }
+.cover .storebar:hover{ border-color:#D9BE7E; background:rgba(255,255,255,.07); }
+.cover .storebar .slabel{ color:#C3D8D0; }
+.cover .storebar .slabel b{ color:#FFFFFF; }
+.cover .storebar .go{ color:#D9BE7E; }
+.cover .foot{ display:flex; justify-content:space-between; align-items:flex-end; font-family:"IBM Plex Mono",monospace; font-size:.58em; letter-spacing:.12em; color:#8FB3A6; }
+
+.backcov{ background:linear-gradient(168deg,#0B3A33 0%,#062B25 100%); color:#EFF4F1; }
+.backcov .pg{ justify-content:space-between; }
+.backcov .hair{ height:1px; background:rgba(255,255,255,.2); margin-bottom:.9em; }
+.backcov .thanks{ font-family:"Gowun Batang",serif; font-size:2.1em; font-weight:700; margin:.5em 0 0; color:#fff; letter-spacing:.01em; }
+.backcov .thanks-ko{ font-family:"Gowun Batang",serif; font-size:1.06em; line-height:1.6; color:#E6D6AE; margin:.5em 0 0; }
+.backcov .thanks-q{ font-size:.74em; font-weight:300; color:#9FC4B7; margin:1.1em 0 0; }
+.backcov .contact{ display:flex; align-items:flex-end; gap:1em; }
+.backcov .kv{ flex:1 1 auto; }
+.backcov .kv b{ color:#9FC4B7; }
+.backcov .kv span{ color:#EFF4F1; }
+.backcov .qr{
+  flex:0 0 auto; width:6.4em; border:1px solid rgba(255,255,255,.28); border-radius:.3em;
+  padding:.7em .5em; display:flex; flex-direction:column; align-items:center; gap:.45em; color:#D9BE7E;
+}
+.backcov .qr svg{ width:2.6em; height:2.6em; }
+.backcov .qr span{ font-family:"IBM Plex Mono",monospace; font-size:.54em; letter-spacing:.08em; text-align:center; line-height:1.5; color:#9FC4B7; }
+.backcov .note{ color:#7FA398; }
+
+/* ---------- bottom bar ---------- */
+.botbar{ flex:0 0 auto; display:flex; align-items:center; justify-content:center; gap:1rem; padding:.85rem 1.15rem 1rem; color:var(--bar-ink); }
+.nav{
+  appearance:none; border:1px solid var(--bar-line); background:transparent; color:inherit;
+  font:inherit; font-size:.78rem; padding:.42rem .8rem; border-radius:999px; cursor:pointer;
+  display:inline-flex; align-items:center; gap:.4rem; transition:border-color .18s,color .18s;
+}
+.nav:hover:not(:disabled){ border-color:var(--accent); color:var(--accent); }
+.nav:disabled{ opacity:.32; cursor:default; }
+.nav svg{ width:13px; height:13px; }
+.dots{ display:flex; align-items:center; gap:5px; }
+.dot{
+  appearance:none; border:0; padding:0; cursor:pointer;
+  width:7px; height:7px; border-radius:50%; background:var(--bar-line);
+  transition:width .26s cubic-bezier(.32,.72,.3,1), background .2s, border-radius .26s;
+}
+.dot:hover{ background:var(--ink-3); }
+.dot.on{ width:20px; border-radius:999px; background:var(--accent); }
+.counter{
+  font-family:"IBM Plex Mono",monospace; font-size:.72rem; letter-spacing:.08em;
+  color:var(--ink-3); min-width:5.4rem; text-align:center; font-variant-numeric:tabular-nums;
+}
+:focus-visible{ outline:2px solid var(--focus); outline-offset:2px; }
+
+@media (max-width: 720px){
+  .deck{ --pw: calc(100vw - 1.6rem); --ph: min( calc(100vh - 9.2rem), calc(var(--pw) * 1.66) ); }
+  @supports (height:100svh){ .deck{ --ph: min( calc(100svh - 9.2rem), calc(var(--pw) * 1.66) ); } }
+}
+@media (max-width: 560px){
+  .topbar .sub, .topbar .sep{ display:none; }
+  .counter{ display:none; }
+  .dots{ gap:4px; }
+}
+</style>
+
+
+<header class="topbar">
+  <span class="logoph-sm" aria-label="로고 자리"></span>
+  <span class="nm">온새누리장터</span>
+  <span class="sep"></span>
+  <span class="sub">공동구매 상담용 안내 · 2026</span>
+</header>
+
+<main class="stage">
+  <div class="deck" id="deck">
+    <div class="track" id="track">
+        <article class="slide cover" data-title="표제부">
+          <div class="pg">
+            <div>
+              <div class="logoph"><span>로고</span></div>
+              <div class="hair"></div>
+              <div class="kicker">Onsaenuri Jangteo</div>
+              <h1>온새누리장터<br>이야기</h1>
+              <div class="title2">정성을 담아,<br>건강한 일상을 전합니다.</div>
+            </div>
+            <div>
+              <p class="cover-msg">온새누리장터를 찾아주시는 고객님께 진심으로 감사드립니다.<br>좋은 상품을 정성껏 선별하고, 정직하게 전하겠습니다.</p>
+              <a class="storebar" href="#">
+              <span class="nmark"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="4.5" fill="#03C75A"/><path d="M14.2 12.3 9.9 6.2H6.2v11.6h3.6v-6.1l4.3 6.1h3.7V6.2h-3.6v6.1Z" fill="#fff"/></svg></span>
+              <span class="slabel">네이버 <b>온새누리장터</b></span>
+              <span class="go">바로가기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></span>
+            </a>
+              <div class="hair"></div>
+              <div class="foot"><span>공동구매 상담용 안내</span><span>2026</span></div>
+            </div>
+          </div>
+        </article>
+        <article class="slide" data-title="인사말">
+          <div class="pg">
+            <div class="eyebrow"><span>인사말</span><i class="ln"></i></div>
+            <h2 class="t">반갑습니다!</h2>
+            <div class="body">
+              <div class="creed">
+                <span>정성을 더하고,</span>
+                <span>믿음을 나누고,</span>
+                <span>행복은 함께합니다.</span>
+              </div>
+              <div class="grow"></div>
+              <a class="storebar" href="#">
+              <span class="nmark"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="4.5" fill="#03C75A"/><path d="M14.2 12.3 9.9 6.2H6.2v11.6h3.6v-6.1l4.3 6.1h3.7V6.2h-3.6v6.1Z" fill="#fff"/></svg></span>
+              <span class="slabel">네이버 <b>온새누리장터</b></span>
+              <span class="go">바로가기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></span>
+            </a>
+            </div>
+            <div class="folio"><span>인사말</span><span class="fl"></span><span class="num">02</span></div>
+          </div>
+        </article>
+        <article class="slide" data-title="콜드브루 원액 1L">
+          <div class="pg">
+            <div class="eyebrow"><span>커피</span><i class="ln"></i><span class="pno">01-001</span></div>
+            <div class="kicker-p">ILJO 시그니처</div>
+            <h2 class="t">콜드브루 원액 1L</h2>
+            <div class="pspec">NOMAD BLEND</div>
+            <div class="body">
+              <p class="catch">필요할 때 언제든 꺼내 집, 사무실, 캠핑, 여행 어디에서나 갓 내린 듯한 깊은 풍미를 즐겨 보세요!</p>
+              <div class="shots s2">
+                <figure class="shot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.2" y="5.2" width="17.6" height="13.6" rx="2.2"/><circle cx="9" cy="10.2" r="1.6"/><path d="m4.4 17 4.4-4.2 3.3 3 3.1-2.6 4.4 3.8"/></svg><figcaption>사진 한컷</figcaption></figure>
+                <figure class="shot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.2" y="5.2" width="17.6" height="13.6" rx="2.2"/><circle cx="9" cy="10.2" r="1.6"/><path d="m4.4 17 4.4-4.2 3.3 3 3.1-2.6 4.4 3.8"/></svg><figcaption>사진 한컷</figcaption></figure>
+              </div>
+              <p class="tagline">깊은 풍미는 그대로, 보관은 더욱 자유롭게</p>
+              <a class="storebar" href="#">
+              <span class="nmark"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="4.5" fill="#03C75A"/><path d="M14.2 12.3 9.9 6.2H6.2v11.6h3.6v-6.1l4.3 6.1h3.7V6.2h-3.6v6.1Z" fill="#fff"/></svg></span>
+              <span class="slabel">네이버 <b>온새누리장터</b></span>
+              <span class="go">바로가기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></span>
+            </a>
+            </div>
+            <div class="folio"><span>커피</span><span class="fl"></span><span class="num">03</span></div>
+          </div>
+        </article>
+        <article class="slide" data-title="한돈 3종 세트">
+          <div class="pg">
+            <div class="eyebrow"><span>한돈</span><i class="ln"></i><span class="pno">01-002</span></div>
+            <div class="kicker-p">제주유채꽃도새기</div>
+            <h2 class="t">한돈 3종 세트</h2>
+            <div class="pspec">1.2kg</div>
+            <div class="body">
+              <p class="catch">유채꽃도새기의 깊은 풍미를 경험해 보세요!</p>
+              <div class="shots s3">
+                <figure class="shot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.2" y="5.2" width="17.6" height="13.6" rx="2.2"/><circle cx="9" cy="10.2" r="1.6"/><path d="m4.4 17 4.4-4.2 3.3 3 3.1-2.6 4.4 3.8"/></svg><figcaption>사진 한컷</figcaption></figure>
+                <figure class="shot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.2" y="5.2" width="17.6" height="13.6" rx="2.2"/><circle cx="9" cy="10.2" r="1.6"/><path d="m4.4 17 4.4-4.2 3.3 3 3.1-2.6 4.4 3.8"/></svg><figcaption>사진 한컷</figcaption></figure>
+                <figure class="shot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.2" y="5.2" width="17.6" height="13.6" rx="2.2"/><circle cx="9" cy="10.2" r="1.6"/><path d="m4.4 17 4.4-4.2 3.3 3 3.1-2.6 4.4 3.8"/></svg><figcaption>사진 한컷</figcaption></figure>
+              </div>
+              <p class="tagline">지방은 덜고, 맛은 살렸습니다.</p>
+              <a class="storebar" href="#">
+              <span class="nmark"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="4.5" fill="#03C75A"/><path d="M14.2 12.3 9.9 6.2H6.2v11.6h3.6v-6.1l4.3 6.1h3.7V6.2h-3.6v6.1Z" fill="#fff"/></svg></span>
+              <span class="slabel">네이버 <b>온새누리장터</b></span>
+              <span class="go">바로가기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></span>
+            </a>
+            </div>
+            <div class="folio"><span>한돈</span><span class="fl"></span><span class="num">04</span></div>
+          </div>
+        </article>
+        <article class="slide" data-title="한돈 왕돈마호크">
+          <div class="pg">
+            <div class="eyebrow"><span>한돈</span><i class="ln"></i><span class="pno">01-003</span></div>
+            <div class="kicker-p">정통 육가공 마이스터</div>
+            <h2 class="t">한돈 왕돈마호크</h2>
+            <div class="pspec">400g × 3팩 · 캠핑용</div>
+            <div class="body">
+              <p class="catch">100년 전통 독일 육가공 마이스터의 장인 정신이 깃든 시즈닝</p>
+              <div class="shots s2">
+                <figure class="shot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.2" y="5.2" width="17.6" height="13.6" rx="2.2"/><circle cx="9" cy="10.2" r="1.6"/><path d="m4.4 17 4.4-4.2 3.3 3 3.1-2.6 4.4 3.8"/></svg><figcaption>사진 한컷</figcaption></figure>
+                <figure class="shot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.2" y="5.2" width="17.6" height="13.6" rx="2.2"/><circle cx="9" cy="10.2" r="1.6"/><path d="m4.4 17 4.4-4.2 3.3 3 3.1-2.6 4.4 3.8"/></svg><figcaption>사진 한컷</figcaption></figure>
+              </div>
+              <p class="tagline">직접 간할 필요 없는 완벽한 맛 밸런스!</p>
+              <a class="storebar" href="#">
+              <span class="nmark"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="4.5" fill="#03C75A"/><path d="M14.2 12.3 9.9 6.2H6.2v11.6h3.6v-6.1l4.3 6.1h3.7V6.2h-3.6v6.1Z" fill="#fff"/></svg></span>
+              <span class="slabel">네이버 <b>온새누리장터</b></span>
+              <span class="go">바로가기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></span>
+            </a>
+            </div>
+            <div class="folio"><span>한돈</span><span class="fl"></span><span class="num">05</span></div>
+          </div>
+        </article>
+        <article class="slide" data-title="LA꽃갈비 선물세트">
+          <div class="pg">
+            <div class="eyebrow"><span>소고기</span><i class="ln"></i><span class="pno">01-004</span></div>
+            <div class="kicker-p">초이스등급 명품</div>
+            <h2 class="t">LA꽃갈비 선물세트</h2>
+            <div class="pspec">1.8kg</div>
+            <div class="body">
+              <p class="catch">갈비살 중 가장 맛있는 꽃갈비살 부분만을 엄선하여 손질한 프리미엄 선물세트</p>
+              <div class="shots s3">
+                <figure class="shot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.2" y="5.2" width="17.6" height="13.6" rx="2.2"/><circle cx="9" cy="10.2" r="1.6"/><path d="m4.4 17 4.4-4.2 3.3 3 3.1-2.6 4.4 3.8"/></svg><figcaption>사진 한컷</figcaption></figure>
+                <figure class="shot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.2" y="5.2" width="17.6" height="13.6" rx="2.2"/><circle cx="9" cy="10.2" r="1.6"/><path d="m4.4 17 4.4-4.2 3.3 3 3.1-2.6 4.4 3.8"/></svg><figcaption>사진 한컷</figcaption></figure>
+                <figure class="shot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.2" y="5.2" width="17.6" height="13.6" rx="2.2"/><circle cx="9" cy="10.2" r="1.6"/><path d="m4.4 17 4.4-4.2 3.3 3 3.1-2.6 4.4 3.8"/></svg><figcaption>사진 한컷</figcaption></figure>
+              </div>
+              <p class="tagline">눈꽃처럼 퍼져있는 육즙 마블링, 뛰어난 육즙과 육향</p>
+              <a class="storebar" href="#">
+              <span class="nmark"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="4.5" fill="#03C75A"/><path d="M14.2 12.3 9.9 6.2H6.2v11.6h3.6v-6.1l4.3 6.1h3.7V6.2h-3.6v6.1Z" fill="#fff"/></svg></span>
+              <span class="slabel">네이버 <b>온새누리장터</b></span>
+              <span class="go">바로가기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></span>
+            </a>
+            </div>
+            <div class="folio"><span>소고기</span><span class="fl"></span><span class="num">06</span></div>
+          </div>
+        </article>
+        <article class="slide" data-title="찐보리굴비 5마리">
+          <div class="pg">
+            <div class="eyebrow"><span>수산</span><i class="ln"></i><span class="pno">01-005</span></div>
+            <div class="kicker-p">영광 더굴비</div>
+            <h2 class="t">찐보리굴비 5마리</h2>
+            <div class="pspec">원산지 : 중국</div>
+            <div class="body">
+              <p class="catch">껍질은 바삭! 굴비살은 쫄깃~ 내장살은 씁쓸한 특유의 맛이 일품인 버릴 것 하나 없는 찐 보리굴비!</p>
+              <div class="shots s2">
+                <figure class="shot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.2" y="5.2" width="17.6" height="13.6" rx="2.2"/><circle cx="9" cy="10.2" r="1.6"/><path d="m4.4 17 4.4-4.2 3.3 3 3.1-2.6 4.4 3.8"/></svg><figcaption>사진 한컷</figcaption></figure>
+                <figure class="shot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.2" y="5.2" width="17.6" height="13.6" rx="2.2"/><circle cx="9" cy="10.2" r="1.6"/><path d="m4.4 17 4.4-4.2 3.3 3 3.1-2.6 4.4 3.8"/></svg><figcaption>사진 한컷</figcaption></figure>
+              </div>
+              <p class="tagline">찬 녹차물 또는 따뜻한 녹차물에 밥을 말아서 참기름을 가미한 고추장에 찍어 먹으면 색다른 별미입니다.</p>
+              <a class="storebar" href="#">
+              <span class="nmark"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="4.5" fill="#03C75A"/><path d="M14.2 12.3 9.9 6.2H6.2v11.6h3.6v-6.1l4.3 6.1h3.7V6.2h-3.6v6.1Z" fill="#fff"/></svg></span>
+              <span class="slabel">네이버 <b>온새누리장터</b></span>
+              <span class="go">바로가기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></span>
+            </a>
+            </div>
+            <div class="folio"><span>수산</span><span class="fl"></span><span class="num">07</span></div>
+          </div>
+        </article>
+        <article class="slide" data-title="숙성수제양념 매콤탱쭈꾸미">
+          <div class="pg">
+            <div class="eyebrow"><span>수산</span><i class="ln"></i><span class="pno">01-006</span></div>
+            <div class="kicker-p">매운맛 중독</div>
+            <h2 class="t">숙성수제양념 매콤탱쭈꾸미</h2>
+            <div class="pspec">500g + 500g · 떡사리 포함 · 2~3인</div>
+            <div class="body">
+              <p class="catch">신선하고 수율 좋은 최상급 쭈꾸미</p>
+              <div class="shots s3">
+                <figure class="shot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.2" y="5.2" width="17.6" height="13.6" rx="2.2"/><circle cx="9" cy="10.2" r="1.6"/><path d="m4.4 17 4.4-4.2 3.3 3 3.1-2.6 4.4 3.8"/></svg><figcaption>사진 한컷</figcaption></figure>
+                <figure class="shot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.2" y="5.2" width="17.6" height="13.6" rx="2.2"/><circle cx="9" cy="10.2" r="1.6"/><path d="m4.4 17 4.4-4.2 3.3 3 3.1-2.6 4.4 3.8"/></svg><figcaption>사진 한컷</figcaption></figure>
+                <figure class="shot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.2" y="5.2" width="17.6" height="13.6" rx="2.2"/><circle cx="9" cy="10.2" r="1.6"/><path d="m4.4 17 4.4-4.2 3.3 3 3.1-2.6 4.4 3.8"/></svg><figcaption>사진 한컷</figcaption></figure>
+              </div>
+              <p class="tagline">일주일 이상 숙성, 깊은 맛의 수제양념소스!</p>
+              <a class="storebar" href="#">
+              <span class="nmark"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="4.5" fill="#03C75A"/><path d="M14.2 12.3 9.9 6.2H6.2v11.6h3.6v-6.1l4.3 6.1h3.7V6.2h-3.6v6.1Z" fill="#fff"/></svg></span>
+              <span class="slabel">네이버 <b>온새누리장터</b></span>
+              <span class="go">바로가기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></span>
+            </a>
+            </div>
+            <div class="folio"><span>수산</span><span class="fl"></span><span class="num">08</span></div>
+          </div>
+        </article>
+        <article class="slide" data-title="한우 떡갈비 선물세트">
+          <div class="pg">
+            <div class="eyebrow"><span>한우</span><i class="ln"></i><span class="pno">01-007(A)</span></div>
+            <div class="kicker-p">궁중레시피 · 명품본가</div>
+            <h2 class="t">한우 떡갈비 선물세트</h2>
+            <div class="pspec">실속형 · 1.02kg (170g × 6개입)</div>
+            <div class="body">
+              <p class="catch">화학적인 발색제를 사용하지 않고 우리땅 한우, 우리땅 한돈과 비법소스로만 전통의 맛을 구현합니다.</p>
+              <div class="shots s2">
+                <figure class="shot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.2" y="5.2" width="17.6" height="13.6" rx="2.2"/><circle cx="9" cy="10.2" r="1.6"/><path d="m4.4 17 4.4-4.2 3.3 3 3.1-2.6 4.4 3.8"/></svg><figcaption>사진 한컷</figcaption></figure>
+                <figure class="shot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.2" y="5.2" width="17.6" height="13.6" rx="2.2"/><circle cx="9" cy="10.2" r="1.6"/><path d="m4.4 17 4.4-4.2 3.3 3 3.1-2.6 4.4 3.8"/></svg><figcaption>사진 한컷</figcaption></figure>
+              </div>
+              <p class="tagline">입안에 가득차는 풍부한 식감</p>
+              <a class="storebar" href="#">
+              <span class="nmark"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="4.5" fill="#03C75A"/><path d="M14.2 12.3 9.9 6.2H6.2v11.6h3.6v-6.1l4.3 6.1h3.7V6.2h-3.6v6.1Z" fill="#fff"/></svg></span>
+              <span class="slabel">네이버 <b>온새누리장터</b></span>
+              <span class="go">바로가기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></span>
+            </a>
+            </div>
+            <div class="folio"><span>한우</span><span class="fl"></span><span class="num">09</span></div>
+          </div>
+        </article>
+        <article class="slide" data-title="한우 떡갈비 선물세트">
+          <div class="pg">
+            <div class="eyebrow"><span>한우</span><i class="ln"></i><span class="pno">01-007(B)</span></div>
+            <div class="kicker-p">궁중레시피 · 명품본가</div>
+            <h2 class="t">한우 떡갈비 선물세트</h2>
+            <div class="pspec">고급형 · 1.36kg (170g × 8개입)</div>
+            <div class="body">
+              <p class="catch">화학적인 발색제를 사용하지 않고 우리땅 한우, 우리땅 한돈과 비법소스로만 전통의 맛을 구현합니다.</p>
+              <div class="shots s2">
+                <figure class="shot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.2" y="5.2" width="17.6" height="13.6" rx="2.2"/><circle cx="9" cy="10.2" r="1.6"/><path d="m4.4 17 4.4-4.2 3.3 3 3.1-2.6 4.4 3.8"/></svg><figcaption>사진 한컷</figcaption></figure>
+                <figure class="shot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.2" y="5.2" width="17.6" height="13.6" rx="2.2"/><circle cx="9" cy="10.2" r="1.6"/><path d="m4.4 17 4.4-4.2 3.3 3 3.1-2.6 4.4 3.8"/></svg><figcaption>사진 한컷</figcaption></figure>
+              </div>
+              <p class="tagline">입안에 가득차는 풍부한 식감</p>
+              <a class="storebar" href="#">
+              <span class="nmark"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="4.5" fill="#03C75A"/><path d="M14.2 12.3 9.9 6.2H6.2v11.6h3.6v-6.1l4.3 6.1h3.7V6.2h-3.6v6.1Z" fill="#fff"/></svg></span>
+              <span class="slabel">네이버 <b>온새누리장터</b></span>
+              <span class="go">바로가기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></span>
+            </a>
+            </div>
+            <div class="folio"><span>한우</span><span class="fl"></span><span class="num">10</span></div>
+          </div>
+        </article>
+        <article class="slide" data-title="한우 떡갈비 선물세트">
+          <div class="pg">
+            <div class="eyebrow"><span>한우</span><i class="ln"></i><span class="pno">01-007(C)</span></div>
+            <div class="kicker-p">궁중레시피 · 명품본가</div>
+            <h2 class="t">한우 떡갈비 선물세트</h2>
+            <div class="pspec">프리미엄형 · 1.7kg (170g × 10개입)</div>
+            <div class="body">
+              <p class="catch">화학적인 발색제를 사용하지 않고 우리땅 한우, 우리땅 한돈과 비법소스로만 전통의 맛을 구현합니다.</p>
+              <div class="shots s2">
+                <figure class="shot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.2" y="5.2" width="17.6" height="13.6" rx="2.2"/><circle cx="9" cy="10.2" r="1.6"/><path d="m4.4 17 4.4-4.2 3.3 3 3.1-2.6 4.4 3.8"/></svg><figcaption>사진 한컷</figcaption></figure>
+                <figure class="shot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.2" y="5.2" width="17.6" height="13.6" rx="2.2"/><circle cx="9" cy="10.2" r="1.6"/><path d="m4.4 17 4.4-4.2 3.3 3 3.1-2.6 4.4 3.8"/></svg><figcaption>사진 한컷</figcaption></figure>
+              </div>
+              <p class="tagline">입안에 가득차는 풍부한 식감</p>
+              <a class="storebar" href="#">
+              <span class="nmark"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="4.5" fill="#03C75A"/><path d="M14.2 12.3 9.9 6.2H6.2v11.6h3.6v-6.1l4.3 6.1h3.7V6.2h-3.6v6.1Z" fill="#fff"/></svg></span>
+              <span class="slabel">네이버 <b>온새누리장터</b></span>
+              <span class="go">바로가기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></span>
+            </a>
+            </div>
+            <div class="folio"><span>한우</span><span class="fl"></span><span class="num">11</span></div>
+          </div>
+        </article>
+        <article class="slide" data-title="이중섭 판화 컬렉션 20종">
+          <div class="pg">
+            <div class="eyebrow"><span>아트</span><i class="ln"></i><span class="pno">01-008</span></div>
+            <h2 class="t">이중섭 판화 컬렉션 20종</h2>
+            <div class="pspec">실크스크린 아트에디션 4호</div>
+            <div class="body">
+              <p class="catch">선과 색의 강도 속에 근원적 인간 감정과 한국적 정서를 담아낸다.</p>
+              <div class="shots s3">
+                <figure class="shot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.2" y="5.2" width="17.6" height="13.6" rx="2.2"/><circle cx="9" cy="10.2" r="1.6"/><path d="m4.4 17 4.4-4.2 3.3 3 3.1-2.6 4.4 3.8"/></svg><figcaption>사진 한컷</figcaption></figure>
+                <figure class="shot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.2" y="5.2" width="17.6" height="13.6" rx="2.2"/><circle cx="9" cy="10.2" r="1.6"/><path d="m4.4 17 4.4-4.2 3.3 3 3.1-2.6 4.4 3.8"/></svg><figcaption>사진 한컷</figcaption></figure>
+                <figure class="shot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.2" y="5.2" width="17.6" height="13.6" rx="2.2"/><circle cx="9" cy="10.2" r="1.6"/><path d="m4.4 17 4.4-4.2 3.3 3 3.1-2.6 4.4 3.8"/></svg><figcaption>사진 한컷</figcaption></figure>
+              </div>
+              <p class="tagline">2026, 이중섭 110주년 기념 ~ (액자포함)</p>
+              <a class="storebar" href="#">
+              <span class="nmark"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="4.5" fill="#03C75A"/><path d="M14.2 12.3 9.9 6.2H6.2v11.6h3.6v-6.1l4.3 6.1h3.7V6.2h-3.6v6.1Z" fill="#fff"/></svg></span>
+              <span class="slabel">네이버 <b>온새누리장터</b></span>
+              <span class="go">바로가기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></span>
+            </a>
+            </div>
+            <div class="folio"><span>아트</span><span class="fl"></span><span class="num">12</span></div>
+          </div>
+        </article>
+        <article class="slide backcov" data-title="맺음말">
+          <div class="pg">
+            <div>
+              <div class="logoph"><span>로고</span></div>
+              <h2 class="thanks">Thank You!</h2>
+              <p class="thanks-ko">온새누리장터와 함께해 주셔서<br>감사합니다.</p>
+              <p class="thanks-q">&ldquo;좋은 인연, 좋은 상품으로 이어가겠습니다.&rdquo;</p>
+            </div>
+            <div class="contact">
+              <div class="kv">
+                <div><b>유통판매원</b><span>온새누리 주식회사</span></div>
+                <div><b>공동구매 상담</b><span>0503-1949-7403</span></div>
+                <div><b>E-Mail</b><span>onc870223@naver.com</span></div>
+              </div>
+              <div class="qr">
+                <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                  <rect x="4" y="4" width="11" height="11" rx="1.5"/><rect x="25" y="4" width="11" height="11" rx="1.5"/><rect x="4" y="25" width="11" height="11" rx="1.5"/>
+                  <rect x="8" y="8" width="3" height="3" fill="currentColor" stroke="none"/><rect x="29" y="8" width="3" height="3" fill="currentColor" stroke="none"/><rect x="8" y="29" width="3" height="3" fill="currentColor" stroke="none"/>
+                  <path d="M25 25h4v4h-4zM32 25h4M25 32h4v4M32 32h4"/>
+                </svg>
+                <span>스마트스토어<br>바로가기</span>
+              </div>
+            </div>
+          </div>
+        </article>
+    </div><!-- /track -->
+  </div><!-- /deck -->
+</main>
+
+<footer class="botbar">
+  <button class="nav" id="prev" type="button" aria-label="이전 페이지">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5 8 12l7 7"/></svg>
+    이전
+  </button>
+  <div class="dots" id="dots"></div>
+  <span class="counter" id="counter">표지</span>
+  <button class="nav" id="next" type="button" aria-label="다음 페이지">
+    다음
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+  </button>
+</footer>
+
+<script>
+(function(){
+  var deck = document.getElementById('deck');
+  var track = document.getElementById('track');
+  var dotsEl = document.getElementById('dots');
+  var counter = document.getElementById('counter');
+  var btnPrev = document.getElementById('prev');
+  var btnNext = document.getElementById('next');
+
+  var slides = Array.prototype.slice.call(track.querySelectorAll('.slide'));
+  var N = slides.length;
+  var i = 0;                      // 0-based current slide
+
+  var dots = slides.map(function(s, n){
+    var b = document.createElement('button');
+    b.className = 'dot'; b.type = 'button';
+    var t = s.getAttribute('data-title') || '';
+    b.title = (n+1) + '. ' + t;
+    b.setAttribute('aria-label', (n+1) + '페이지, ' + t);
+    b.addEventListener('click', function(){ go(n); });
+    dotsEl.appendChild(b);
+    return b;
+  });
+
+  function pad(n){ return n < 10 ? '0' + n : '' + n; }
+
+  function render(){
+    track.style.setProperty('--i', i);
+    track.style.setProperty('--dx', '0px');
+    dots.forEach(function(d, n){ d.classList.toggle('on', n === i); });
+    slides.forEach(function(s, n){ s.setAttribute('aria-hidden', n === i ? 'false' : 'true'); });
+    counter.textContent = pad(i+1) + ' / ' + N;
+    btnPrev.disabled = i <= 0;
+    btnNext.disabled = i >= N-1;
+  }
+
+  function go(n){ i = Math.max(0, Math.min(N-1, n)); render(); }
+  function next(){ go(i+1); }
+  function prev(){ go(i-1); }
+
+  btnNext.addEventListener('click', next);
+  btnPrev.addEventListener('click', prev);
+
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'ArrowRight' || e.key === 'PageDown'){ next(); e.preventDefault(); }
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp'){ prev(); e.preventDefault(); }
+    else if (e.key === 'Home'){ go(0); e.preventDefault(); }
+    else if (e.key === 'End'){ go(N-1); e.preventDefault(); }
+  });
+
+  /* drag / swipe */
+  var drag = null;
+  deck.addEventListener('pointerdown', function(e){
+    if (e.button !== 0) return;
+    drag = { x0: e.clientX, y0: e.clientY, dx: 0, locked: false };
+    track.classList.add('no-anim');
+    deck.classList.add('dragging');
+    try { deck.setPointerCapture(e.pointerId); } catch(err){}
+  });
+
+  deck.addEventListener('pointermove', function(e){
+    if (!drag) return;
+    var dx = e.clientX - drag.x0;
+    var dy = e.clientY - drag.y0;
+    if (!drag.locked){
+      if (Math.abs(dx) < 6 && Math.abs(dy) < 6) return;
+      drag.locked = true;
+      drag.axis = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y';
+    }
+    if (drag.axis !== 'x') return;
+    // resist past the first / last page
+    if ((i === 0 && dx > 0) || (i === N-1 && dx < 0)) dx *= 0.28;
+    drag.dx = dx;
+    track.style.setProperty('--dx', dx + 'px');
+  });
+
+  function endDrag(e){
+    if (!drag) return;
+    var d = drag; drag = null;
+    track.classList.remove('no-anim');
+    deck.classList.remove('dragging');
+    try { deck.releasePointerCapture(e.pointerId); } catch(err){}
+    var threshold = deck.clientWidth * 0.16;
+    if (d.axis === 'x' && Math.abs(d.dx) > threshold){ d.dx < 0 ? next() : prev(); }
+    else render();
+  }
+  deck.addEventListener('pointerup', endDrag);
+  deck.addEventListener('pointercancel', endDrag);
+
+  render();
+})();
+</script>
