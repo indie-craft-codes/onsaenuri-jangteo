@@ -2,8 +2,9 @@
 
 온새누리장터 공동구매 상담용 홍보물 웹 버전 (13페이지, 슬라이드 전환).
 
-- `index.html` — 배포본
-- `build.py` — 페이지 내용 생성 스크립트. `PRODUCTS` 를 수정하고 `python3 build.py` 실행하면 `index.html` 의 페이지 부분만 갱신된다.
+- `index.html` — GitHub Pages 배포본 (완전한 HTML 문서, 자동 생성)
+- `page.html` — 본문만 담긴 원본. 레이아웃·스타일·스크립트를 여기서 고친다.
+- `build.py` — `PRODUCTS` 수정 후 `python3 build.py` 실행하면 `page.html` 의 페이지 부분과 `index.html` 전체를 갱신한다.
 - `index-3d.html` — 3D 책 넘김 방식 시안 (미사용)
 
 ## 남은 자리표시

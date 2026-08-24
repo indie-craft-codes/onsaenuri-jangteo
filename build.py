@@ -144,11 +144,36 @@ for i, p in enumerate(PRODUCTS):
     slides.append(product_page(p, i + 3))
 slides.append(CLOSING)
 
-# index.html 의 track 안쪽만 교체 (레이아웃/스크립트는 그대로 유지)
+# 1) page.html — 본문만 (Artifact 배포용). track 안쪽만 교체하고 나머지는 유지.
 HEAD_MARK = '<div class="track" id="track">'
 TAIL_MARK = '    </div><!-- /track -->'
-doc = open('index.html', encoding='utf-8').read()
+doc = open('page.html', encoding='utf-8').read()
 head = doc.split(HEAD_MARK)[0] + HEAD_MARK + "\n"
 tail = TAIL_MARK + doc.split(TAIL_MARK)[1]
-open('index.html', 'w', encoding='utf-8').write(head + "\n".join(slides) + "\n" + tail)
+page = head + "\n".join(slides) + "\n" + tail
+open('page.html', 'w', encoding='utf-8').write(page)
+
+# 2) index.html — 완전한 HTML 문서 (GitHub Pages 배포용)
+page = page.replace('<meta charset="utf-8">\n', '')
+h, _, rest = page.partition('</style>')
+doc_head = h.strip() + "\n</style>"
+doc_body = rest.strip()
+open('index.html', 'w', encoding='utf-8').write(f'''<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="온새누리장터 공동구매 상담용 안내 — 상품 10종">
+<meta name="theme-color" content="#0E5C4F" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0D100F" media="(prefers-color-scheme: dark)">
+<meta property="og:title" content="온새누리장터 공동구매 안내">
+<meta property="og:description" content="온새누리장터 공동구매 상담용 안내 — 상품 10종">
+<meta property="og:type" content="website">
+{doc_head}
+</head>
+<body>
+{doc_body}
+</body>
+</html>
+''')
 print("slides:", len(slides))
