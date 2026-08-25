@@ -23,11 +23,13 @@ PRODUCTS = [
     dict(no="01-005", cat="수산", kicker="영광 더굴비",
          name="찐보리굴비 5마리", sub="원산지 : 중국",
          catch="껍질은 바삭! 굴비살은 쫄깃~ 내장살은 씁쓸한 특유의 맛이 일품인 버릴 것 하나 없는 찐 보리굴비!",
-         tag="찬 녹차물 또는 따뜻한 녹차물에 밥을 말아서 참기름을 가미한 고추장에 찍어 먹으면 색다른 별미입니다.", shots=2),
+         tag="찬 녹차물 또는 따뜻한 녹차물에 밥을 말아서 참기름을 가미한 고추장에 찍어 먹으면 색다른 별미입니다.", shots=2,
+         hide=True),   # 임시 숨김 — 이 줄만 지우면 다시 나온다
     dict(no="01-006", cat="수산", kicker="매운맛 중독",
          name="숙성수제양념 매콤탱쭈꾸미", sub="500g + 500g · 떡사리 포함 · 2~3인",
          catch="신선하고 수율 좋은 최상급 쭈꾸미",
-         tag="일주일 이상 숙성, 깊은 맛의 수제양념소스!", shots=3),
+         tag="일주일 이상 숙성, 깊은 맛의 수제양념소스!", shots=3,
+         hide=True),   # 임시 숨김 — 이 줄만 지우면 다시 나온다
     dict(no="01-007(A)", cat="한우", kicker="궁중레시피 · 명품본가",
          name="한우 떡갈비 선물세트", sub="실속형 · 1.02kg (170g × 6개입)",
          catch="화학적인 발색제를 사용하지 않고 우리땅 한우, 우리땅 한돈과 비법소스로만 전통의 맛을 구현합니다.",
@@ -139,8 +141,12 @@ CLOSING = '''        <article class="slide backcov" data-title="맺음말">
           </div>
         </article>'''
 
+# hide=True 인 상품은 페이지에서 빠진다 (데이터는 위에 그대로 남음)
+VISIBLE = [p for p in PRODUCTS if not p.get("hide")]
+HIDDEN = [p for p in PRODUCTS if p.get("hide")]
+
 slides = [COVER, GREETING]
-for i, p in enumerate(PRODUCTS):
+for i, p in enumerate(VISIBLE):
     slides.append(product_page(p, i + 3))
 slides.append(CLOSING)
 
@@ -177,3 +183,5 @@ open('index.html', 'w', encoding='utf-8').write(f'''<!doctype html>
 </html>
 ''')
 print("slides:", len(slides))
+if HIDDEN:
+    print("숨김:", ", ".join(f'{p["no"]} {p["name"]}' for p in HIDDEN))
