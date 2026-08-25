@@ -194,6 +194,12 @@ h2.t{
 .backcov .kv{ flex:1 1 auto; }
 .backcov .kv b{ color:#9FC4B7; }
 .backcov .kv span{ color:#EFF4F1; }
+.backcov .kv a{
+  color:#EFF4F1; text-decoration:underline; text-decoration-color:rgba(217,190,126,.5);
+  text-underline-offset:.28em; text-decoration-thickness:1px;
+  padding:.25em 0; transition:color .18s, text-decoration-color .18s;
+}
+.backcov .kv a:hover, .backcov .kv a:active{ color:#D9BE7E; text-decoration-color:#D9BE7E; }
 .backcov .qr{
   flex:0 0 auto; width:6.4em; border:1px solid rgba(255,255,255,.28); border-radius:.3em;
   padding:.7em .5em; display:flex; flex-direction:column; align-items:center; gap:.45em; color:#D9BE7E;
@@ -524,8 +530,8 @@ h2.t{
             <div class="contact">
               <div class="kv">
                 <div><b>유통판매원</b><span>온새누리 주식회사</span></div>
-                <div><b>공동구매 상담</b><span>0503-1949-7403</span></div>
-                <div><b>E-Mail</b><span>onc870223@naver.com</span></div>
+                <div><b>공동구매 상담</b><span><a href="tel:050319497403">0503-1949-7403</a></span></div>
+                <div><b>E-Mail</b><span><a href="mailto:onc870223@naver.com">onc870223@naver.com</a></span></div>
               </div>
               <div class="qr">
                 <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
@@ -609,10 +615,7 @@ h2.t{
   var drag = null;
   deck.addEventListener('pointerdown', function(e){
     if (e.button !== 0) return;
-    drag = { x0: e.clientX, y0: e.clientY, dx: 0, locked: false };
-    track.classList.add('no-anim');
-    deck.classList.add('dragging');
-    try { deck.setPointerCapture(e.pointerId); } catch(err){}
+    drag = { x0: e.clientX, y0: e.clientY, dx: 0, locked: false, pid: e.pointerId };
   });
 
   deck.addEventListener('pointermove', function(e){
@@ -623,6 +626,12 @@ h2.t{
       if (Math.abs(dx) < 6 && Math.abs(dy) < 6) return;
       drag.locked = true;
       drag.axis = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y';
+      if (drag.axis === 'x'){
+        // 실제로 끌기 시작한 뒤에만 포인터를 붙잡는다 — 그냥 탭했을 때 링크가 살아있도록
+        track.classList.add('no-anim');
+        deck.classList.add('dragging');
+        try { deck.setPointerCapture(drag.pid); } catch(err){}
+      }
     }
     if (drag.axis !== 'x') return;
     // resist past the first / last page

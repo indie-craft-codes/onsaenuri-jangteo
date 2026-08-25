@@ -124,8 +124,8 @@ CLOSING = '''        <article class="slide backcov" data-title="맺음말">
             <div class="contact">
               <div class="kv">
                 <div><b>유통판매원</b><span>온새누리 주식회사</span></div>
-                <div><b>공동구매 상담</b><span>0503-1949-7403</span></div>
-                <div><b>E-Mail</b><span>onc870223@naver.com</span></div>
+                <div><b>공동구매 상담</b><span><a href="tel:050319497403">0503-1949-7403</a></span></div>
+                <div><b>E-Mail</b><span><a href="mailto:onc870223@naver.com">onc870223@naver.com</a></span></div>
               </div>
               <div class="qr">
                 <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
