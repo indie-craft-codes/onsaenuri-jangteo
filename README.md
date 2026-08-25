@@ -25,9 +25,23 @@
 `build.py` 가 표제부·맺음말에, `page.html` 상단바가 심볼만 쓴다.
 더 높은 해상도나 벡터(AI/SVG) 파일이 생기면 `logo_data.py` 를 다시 만들면 된다.
 
+## 상품 대표 이미지
+
+`photo_data.py` 에 상품번호별 data URI. 원본은 `assets/products/`.
+각 상품 페이지의 첫 번째 `사진 한컷` 칸에 들어가고, 나머지 칸은 자리표시로 남는다.
+
+**주의**: 스토어 목록 HTML 에서 링크 주변 이미지를 긁으면 이웃 상품 것이 섞인다.
+반드시 상품 페이지를 개별로 열어 `og:image` 를 읽을 것.
+
+```
+osascript -e 'tell application "Safari" to set URL of document 1 to "…/products/<id>"'
+osascript -e 'tell application "Safari" to get source of document 1' | grep og:image
+```
+이미지는 `<url>?type=f640_640` 으로 받으면 640px. CDN(shop-phinf.pstatic.net)은 curl 로도 받아진다.
+
 ## 남은 자리표시
 
-- 상품 사진, QR코드 이미지
+- 상품별 두 번째·세 번째 사진, QR코드 이미지
 - `01-002 제주유채꽃도새기 한돈3종세트` — 스토어에 등록된 상품이 없어 스토어 홈으로 연결됨
 
 ## 스토어 상품 목록 확인 방법

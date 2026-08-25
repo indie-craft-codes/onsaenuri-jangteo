@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """온새누리장터 공동구매 홍보물 - 페이지 데이터에서 index.html 생성"""
 
+from photo_data import PHOTOS
 from logo_data import LOGO_FULL, LOGO_MARK, LOGO_FULL_W, LOGO_FULL_H
 
 STORE_URL = "https://m.smartstore.naver.com/onsaynuri"   # 온새누리장터 스마트스토어
@@ -73,13 +74,21 @@ def storebar(no=None):
               <span class="go">바로가기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></span>
             </a>'''
 
-def shots(n):
-    cells = "\n".join(
-        '''                <figure class="shot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.2" y="5.2" width="17.6" height="13.6" rx="2.2"/><circle cx="9" cy="10.2" r="1.6"/><path d="m4.4 17 4.4-4.2 3.3 3 3.1-2.6 4.4 3.8"/></svg><figcaption>사진 한컷</figcaption></figure>'''
-        for _ in range(n))
+def shots(n, no=None):
+    """첫 칸은 스토어 대표 이미지, 나머지는 자리표시."""
+    ph = ('''                <figure class="shot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.2" y="5.2" width="17.6" height="13.6" rx="2.2"/><circle cx="9" cy="10.2" r="1.6"/><path d="m4.4 17 4.4-4.2 3.3 3 3.1-2.6 4.4 3.8"/></svg><figcaption>사진 한컷</figcaption></figure>''')
+    src = PHOTOS.get(no)
+    cells = []
+    for i in range(n):
+        if i == 0 and src:
+            cells.append(f'                <figure class="shot filled"><img src="{src}" width="520" height="520" alt="" loading="lazy"></figure>')
+        else:
+            cells.append(ph)
+    inner = "\n".join(cells)
     return f'''<div class="shots s{n}">
-{cells}
+{inner}
               </div>'''
+
 
 def product_page(p, folio):
     kicker_html = f'            <div class="kicker-p">{p["kicker"]}</div>\n' if p["kicker"] else ""
@@ -90,7 +99,7 @@ def product_page(p, folio):
             <div class="pspec">{p['sub']}</div>
             <div class="body">
               <p class="catch">{p['catch']}</p>
-              {shots(p['shots'])}
+              {shots(p['shots'], p['no'])}
               <p class="tagline">{p['tag']}</p>
               {storebar(p['no'])}
             </div>
