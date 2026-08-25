@@ -21,5 +21,17 @@
 
 ## 남은 자리표시
 
-- 상품별 개별 링크 (`PRODUCT_URLS`) — 지금은 전부 스토어 홈으로 간다
 - 상품 사진, 로고, QR코드 이미지
+- `01-002 제주유채꽃도새기 한돈3종세트` — 스토어에 등록된 상품이 없어 스토어 홈으로 연결됨
+
+## 스토어 상품 목록 확인 방법
+
+이 환경에서 curl / Playwright 로 스마트스토어에 접근하면 429 로 막힌다.
+사용자 Safari 를 AppleScript 로 띄워 읽으면 정상 동작한다.
+
+```
+osascript -e 'tell application "Safari" to set URL of document 1 to "https://m.smartstore.naver.com/onsaynuri/category/ALL"'
+osascript -e 'tell application "Safari" to get source of document 1' > out.html
+```
+
+스토어 내 검색: `https://m.smartstore.naver.com/onsaynuri/search?q=<검색어>`
