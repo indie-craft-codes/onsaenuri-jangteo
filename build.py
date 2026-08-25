@@ -1,7 +1,12 @@
 # -*- coding: utf-8 -*-
 """온새누리장터 공동구매 홍보물 - 페이지 데이터에서 index.html 생성"""
 
-STORE_URL = "#"   # TODO: 네이버 스마트스토어 온새누리장터 주소로 교체
+STORE_URL = "https://m.smartstore.naver.com/onsaynuri"   # 온새누리장터 스마트스토어
+
+# 상품별 개별 링크. 상품번호 -> URL. 비어 있으면 스토어 홈(STORE_URL)으로 연결된다.
+PRODUCT_URLS = {
+    # "01-001": "https://smartstore.naver.com/onsaynuri/products/0000000000",
+}
 
 PRODUCTS = [
     dict(no="01-001", cat="커피", kicker="ILJO 시그니처",
@@ -48,8 +53,9 @@ PRODUCTS = [
          tag="2026, 이중섭 110주년 기념 ~ (액자포함)", shots=3),
 ]
 
-def storebar():
-    return f'''<a class="storebar" href="{STORE_URL}">
+def storebar(no=None):
+    href = PRODUCT_URLS.get(no) or STORE_URL
+    return f'''<a class="storebar" href="{href}" target="_blank" rel="noopener">
               <span class="nmark"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="4.5" fill="#03C75A"/><path d="M14.2 12.3 9.9 6.2H6.2v11.6h3.6v-6.1l4.3 6.1h3.7V6.2h-3.6v6.1Z" fill="#fff"/></svg></span>
               <span class="slabel">네이버 <b>온새누리장터</b></span>
               <span class="go">바로가기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></span>
@@ -74,7 +80,7 @@ def product_page(p, folio):
               <p class="catch">{p['catch']}</p>
               {shots(p['shots'])}
               <p class="tagline">{p['tag']}</p>
-              {storebar()}
+              {storebar(p['no'])}
             </div>
             <div class="folio"><span>{p['cat']}</span><span class="fl"></span><span class="num">{folio:02d}</span></div>
           </div>
@@ -115,7 +121,7 @@ GREETING = '''        <article class="slide" data-title="인사말">
           </div>
         </article>'''
 
-CLOSING = '''        <article class="slide backcov" data-title="맺음말">
+CLOSING = f'''        <article class="slide backcov" data-title="맺음말">
           <div class="pg">
             <div>
               <div class="logoph"><span>로고</span></div>
@@ -129,14 +135,14 @@ CLOSING = '''        <article class="slide backcov" data-title="맺음말">
                 <div><b>공동구매 상담</b><span><a href="tel:050319497403">0503-1949-7403</a></span></div>
                 <div><b>E-Mail</b><span><a href="mailto:onc870223@naver.com">onc870223@naver.com</a></span></div>
               </div>
-              <div class="qr">
+              <a class="qr" href="{STORE_URL}" target="_blank" rel="noopener">
                 <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
                   <rect x="4" y="4" width="11" height="11" rx="1.5"/><rect x="25" y="4" width="11" height="11" rx="1.5"/><rect x="4" y="25" width="11" height="11" rx="1.5"/>
                   <rect x="8" y="8" width="3" height="3" fill="currentColor" stroke="none"/><rect x="29" y="8" width="3" height="3" fill="currentColor" stroke="none"/><rect x="8" y="29" width="3" height="3" fill="currentColor" stroke="none"/>
                   <path d="M25 25h4v4h-4zM32 25h4M25 32h4v4M32 32h4"/>
                 </svg>
                 <span>스마트스토어<br>바로가기</span>
-              </div>
+              </a>
             </div>
           </div>
         </article>'''
