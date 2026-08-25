@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 """온새누리장터 공동구매 홍보물 - 페이지 데이터에서 index.html 생성"""
 
+from logo_data import LOGO_FULL, LOGO_MARK, LOGO_FULL_W, LOGO_FULL_H
+
 STORE_URL = "https://m.smartstore.naver.com/onsaynuri"   # 온새누리장터 스마트스토어
 
 # 상품별 개별 링크. 상품번호 -> URL. 비어 있으면 스토어 홈(STORE_URL)으로 연결된다.
@@ -96,10 +98,10 @@ def product_page(p, folio):
           </div>
         </article>'''
 
-COVER = '''        <article class="slide cover" data-title="표제부">
+COVER = f'''        <article class="slide cover" data-title="표제부">
           <div class="pg">
             <div>
-              <div class="logoph"><span>로고</span></div>
+              <div class="logoplate"><img src="{LOGO_FULL}" width="{LOGO_FULL_W}" height="{LOGO_FULL_H}" alt="온새누리(주)"></div>
               <div class="hair"></div>
               <div class="kicker">Onsaenuri Jangteo</div>
               <h1>온새누리장터<br>이야기</h1>
@@ -134,7 +136,7 @@ GREETING = '''        <article class="slide" data-title="인사말">
 CLOSING = f'''        <article class="slide backcov" data-title="맺음말">
           <div class="pg">
             <div>
-              <div class="logoph"><span>로고</span></div>
+              <div class="logoplate"><img src="{LOGO_FULL}" width="{LOGO_FULL_W}" height="{LOGO_FULL_H}" alt="온새누리(주)"></div>
               <h2 class="thanks">Thank You!</h2>
               <p class="thanks-ko">온새누리장터와 함께해 주셔서<br>감사합니다.</p>
               <p class="thanks-q">&ldquo;좋은 인연, 좋은 상품으로 이어가겠습니다.&rdquo;</p>
