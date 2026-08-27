@@ -29,7 +29,8 @@ PRODUCTS = [
     dict(no="01-002", cat="한돈", kicker="제주유채꽃도새기",
          name="한돈 3종 세트", sub="1.2kg",
          catch="유채꽃도새기의 깊은 풍미를 경험해 보세요!",
-         tag="지방은 덜고, 맛은 살렸습니다.", shots=3),
+         tag="지방은 덜고, 맛은 살렸습니다.", shots=3,
+         hide=True),   # 임시 숨김 — 스토어에 등록된 상품 없음. 이 줄만 지우면 다시 나온다
     dict(no="01-003", cat="한돈", kicker="정통 육가공 마이스터",
          name="한돈 왕돈마호크", sub="400g × 3팩 · 캠핑용",
          catch="100년 전통 독일 육가공 마이스터의 장인 정신이 깃든 시즈닝",
@@ -67,12 +68,14 @@ PRODUCTS = [
 ]
 
 def storebar(no=None):
+    """원본 팜플릿의 3칸 표: 네이버 | 온새누리장터 | 바로가기"""
     href = PRODUCT_URLS.get(no) or STORE_URL
     return f'''<a class="storebar" href="{href}" target="_blank" rel="noopener">
-              <span class="nmark"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="4.5" fill="#03C75A"/><path d="M14.2 12.3 9.9 6.2H6.2v11.6h3.6v-6.1l4.3 6.1h3.7V6.2h-3.6v6.1Z" fill="#fff"/></svg></span>
-              <span class="slabel">네이버 <b>온새누리장터</b></span>
-              <span class="go">바로가기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></span>
+              <span class="sb-l"><span class="nmark"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="4.5" fill="#03C75A"/><path d="M14.2 12.3 9.9 6.2H6.2v11.6h3.6v-6.1l4.3 6.1h3.7V6.2h-3.6v6.1Z" fill="#fff"/></svg></span><i>네이버</i></span>
+              <span class="sb-c">온새누리장터</span>
+              <span class="sb-r">바로가기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></span>
             </a>'''
+
 
 def shots(n, no=None):
     """첫 칸은 스토어 대표 이미지, 나머지는 자리표시."""
