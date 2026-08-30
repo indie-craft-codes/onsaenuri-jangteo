@@ -34,7 +34,7 @@ PRODUCTS = [
     dict(no="01-003", cat="한돈", kicker="정통 육가공 마이스터",
          name="한돈 왕돈마호크", sub="400g × 3팩 · 캠핑용",
          catch="100년 전통 독일 육가공 마이스터의 장인 정신이 깃든 시즈닝",
-         tag="직접 간할 필요 없는 완벽한 맛 밸런스!", shots=2),
+         tag="직접 간할 필요 없는 완벽한 맛 밸런스!", shots=3),
     dict(no="01-004", cat="소고기", kicker="초이스등급 명품",
          name="LA꽃갈비 선물세트", sub="1.8kg",
          catch="갈비살 중 가장 맛있는 꽃갈비살 부분만을 엄선하여 손질한 프리미엄 선물세트",
@@ -78,13 +78,13 @@ def storebar(no=None):
 
 
 def shots(n, no=None):
-    """첫 칸은 스토어 대표 이미지, 나머지는 자리표시."""
+    """PHOTOS 의 사진을 앞에서부터 칸에 채우고, 남는 칸은 자리표시로 둔다."""
     ph = ('''                <figure class="shot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.2" y="5.2" width="17.6" height="13.6" rx="2.2"/><circle cx="9" cy="10.2" r="1.6"/><path d="m4.4 17 4.4-4.2 3.3 3 3.1-2.6 4.4 3.8"/></svg><figcaption>사진 한컷</figcaption></figure>''')
-    src = PHOTOS.get(no)
+    srcs = PHOTOS.get(no) or []
     cells = []
     for i in range(n):
-        if i == 0 and src:
-            cells.append(f'                <figure class="shot filled"><img src="{src}" width="520" height="520" alt="" loading="lazy"></figure>')
+        if i < len(srcs):
+            cells.append(f'                <figure class="shot filled"><img src="{srcs[i]}" alt="" loading="lazy"></figure>')
         else:
             cells.append(ph)
     inner = "\n".join(cells)
