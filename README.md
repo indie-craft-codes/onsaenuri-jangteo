@@ -1,11 +1,22 @@
 # 온새누리장터 공동구매 안내
 
+**https://onsaynuri.com**
+
 온새누리장터 공동구매 상담용 홍보물 웹 버전 (13페이지, 슬라이드 전환).
 
 - `index.html` — GitHub Pages 배포본 (완전한 HTML 문서, 자동 생성)
 - `page.html` — 본문만 담긴 원본. 레이아웃·스타일·스크립트를 여기서 고친다.
 - `build.py` — `PRODUCTS` 수정 후 `python3 build.py` 실행하면 `page.html` 의 페이지 부분과 `index.html` 전체를 갱신한다.
 - `index-3d.html` — 3D 책 넘김 방식 시안 (미사용)
+
+## 도메인
+
+Cloudflare 에서 산 `onsaynuri.com` 을 GitHub Pages 에 연결했다.
+
+- Cloudflare DNS: `@`, `www` 둘 다 CNAME -> `indie-craft-codes.github.io`, **프록시 끔(DNS 전용)**
+- 저장소 루트의 `CNAME` 파일이 커스텀 도메인을 지정한다. 지우면 연결이 끊긴다.
+- 인증서는 GitHub 이 Let's Encrypt 로 자동 발급/갱신. 프록시를 켜면 갱신이 막히므로
+  켜야 한다면 Cloudflare SSL/TLS 를 `Full (strict)` 로 둘 것.
 
 ## 임시 숨김
 
