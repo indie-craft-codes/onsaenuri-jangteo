@@ -40,7 +40,8 @@ Cloudflare 에서 산 `onsaynuri.com` 을 GitHub Pages 에 연결했다.
 ## 상품 대표 이미지
 
 `photo_data.py` 에 상품번호별 **목록**. 앞에서부터 사진 칸을 채우고 남는 칸은 자리표시로 남는다.
-원본은 `assets/products/`. 칸 수는 `build.py` 의 `shots=N`.
+원본은 `assets/products/`. 칸 수는 `build.py` 의 `shots=N` (1/2/3).
+사진 수와 칸 수를 맞출 것 — 남는 칸은 점선 자리표시로 비어 보인다.
 
 - `01-001` 첫 장은 애니메이션 WebP. 원본 GIF 9.4MB(720px/120프레임)를
   440px·60프레임·q45 로 줄여 462KB. 원본은 `01-001-1-원본.gif`.
