@@ -205,6 +205,10 @@ open('index.html', 'w', encoding='utf-8').write(f'''<!doctype html>
 <meta property="og:title" content="온새누리장터 공동구매 안내">
 <meta property="og:description" content="온새누리장터 공동구매 상담용 안내 — 상품 10종">
 <meta property="og:type" content="website">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 {doc_head}
 </head>
 <body>

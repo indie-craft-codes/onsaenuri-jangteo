@@ -56,6 +56,11 @@ osascript -e 'tell application "Safari" to get source of document 1' | grep og:i
 ```
 이미지는 `<url>?type=f640_640` 으로 받으면 640px. CDN(shop-phinf.pstatic.net)은 curl 로도 받아진다.
 
+## 파비콘
+
+`assets/logo-mark.png` 에서 만든다. 저장소 루트에 `favicon.ico`(16/32/48),
+`icon-192.png`, `icon-512.png`, `apple-touch-icon.png`. 링크 태그는 `build.py` 의 head 에 있다.
+
 ## 남은 자리표시
 
 - 상품별 두 번째·세 번째 사진, QR코드 이미지
