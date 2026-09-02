@@ -84,7 +84,7 @@ def shots(n, no=None):
     cells = []
     for i in range(n):
         if i < len(srcs):
-            cells.append(f'                <figure class="shot filled"><img src="{srcs[i]}" alt="" loading="lazy"></figure>')
+            cells.append(f'                <figure class="shot filled"><img src="{srcs[i]}" alt="" loading="lazy" draggable="false"></figure>')
         else:
             cells.append(ph)
     inner = "\n".join(cells)
@@ -113,7 +113,7 @@ def product_page(p, folio):
 COVER = f'''        <article class="slide cover" data-title="표제부">
           <div class="pg">
             <div>
-              <div class="logoplate"><img src="{LOGO_FULL}" width="{LOGO_FULL_W}" height="{LOGO_FULL_H}" alt="온새누리(주)"></div>
+              <div class="logoplate"><img src="{LOGO_FULL}" width="{LOGO_FULL_W}" height="{LOGO_FULL_H}" alt="온새누리(주)" draggable="false"></div>
               <div class="hair"></div>
               <div class="kicker">Onsaenuri Jangteo</div>
               <h1>온새누리장터<br>이야기</h1>
@@ -148,7 +148,7 @@ GREETING = '''        <article class="slide" data-title="인사말">
 CLOSING = f'''        <article class="slide backcov" data-title="맺음말">
           <div class="pg">
             <div>
-              <div class="logoplate"><img src="{LOGO_FULL}" width="{LOGO_FULL_W}" height="{LOGO_FULL_H}" alt="온새누리(주)"></div>
+              <div class="logoplate"><img src="{LOGO_FULL}" width="{LOGO_FULL_W}" height="{LOGO_FULL_H}" alt="온새누리(주)" draggable="false"></div>
               <h2 class="thanks">Thank You!</h2>
               <p class="thanks-ko">온새누리장터와 함께해 주셔서<br>감사합니다.</p>
               <p class="thanks-q">&ldquo;좋은 인연, 좋은 상품으로 이어가겠습니다.&rdquo;</p>
