@@ -56,6 +56,13 @@ osascript -e 'tell application "Safari" to get source of document 1' | grep og:i
 ```
 이미지는 `<url>?type=f640_640` 으로 받으면 640px. CDN(shop-phinf.pstatic.net)은 curl 로도 받아진다.
 
+## UI 가이드
+
+`ui-guide.html` — 색·서체·부품·사진 규칙·운영 절차. https://onsaynuri.com/ui-guide.html
+`make_guide.py` 가 `ui-guide-body.html` 과 `page.html` 의 실제 CSS 를 합쳐 만든다.
+예시는 다시 그린 게 아니라 제품 CSS 를 그대로 떼어와 렌더하므로, 스타일을 고치고
+`python3 make_guide.py` 를 돌리면 가이드도 같이 최신이 된다.
+
 ## 파비콘
 
 `assets/logo-mark.png` 에서 만든다. 저장소 루트에 `favicon.ico`(16/32/48),

@@ -1,0 +1,455 @@
+<title>온새누리장터 UI 가이드</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@300;400;500;600&display=swap">
+<style>
+:root{
+  --desk:#D6D8D0; --desk-2:#C8CBC2;
+  --page:#FAFAF6; --page-2:#F2F2EB;
+  --ink:#16211C; --ink-2:#4C5A53; --ink-3:#7C8981;
+  --accent:#0E5C4F; --accent-soft:#E7EEEA; --brass:#A5731F;
+  --rule:rgba(22,33,28,.16); --rule-2:rgba(22,33,28,.08);
+  --bar-ink:#2C3630; --bar-line:rgba(22,33,28,.18); --focus:#0E5C4F;
+  --code:#EDEFE8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --desk:#0D100F; --desk-2:#141817; --page:#1A1E1C; --page-2:#161A18;
+    --ink:#E4E8E2; --ink-2:#A3AEA7; --ink-3:#77837C;
+    --accent:#63C3A9; --accent-soft:#1E2E2A; --brass:#D2A44B;
+    --rule:rgba(228,232,226,.20); --rule-2:rgba(228,232,226,.10);
+    --bar-ink:#C4CDC7; --bar-line:rgba(228,232,226,.16); --focus:#63C3A9;
+    --code:#121715;
+  }
+}
+:root[data-theme="dark"]{
+  --desk:#0D100F; --desk-2:#141817; --page:#1A1E1C; --page-2:#161A18;
+  --ink:#E4E8E2; --ink-2:#A3AEA7; --ink-3:#77837C;
+  --accent:#63C3A9; --accent-soft:#1E2E2A; --brass:#D2A44B;
+  --rule:rgba(228,232,226,.20); --rule-2:rgba(228,232,226,.10);
+  --bar-ink:#C4CDC7; --bar-line:rgba(228,232,226,.16); --focus:#63C3A9;
+  --code:#121715;
+}
+
+*{ box-sizing:border-box; }
+body{
+  margin:0; background:var(--desk); color:var(--ink);
+  font-family:"IBM Plex Sans KR","Apple SD Gothic Neo",system-ui,sans-serif;
+  font-weight:300; line-height:1.75; -webkit-font-smoothing:antialiased;
+}
+.wrap{ max-width:52rem; margin:0 auto; padding:0 1.4rem 6rem; }
+
+/* ---- 머리말 ---- */
+header.top{ padding:4.5rem 0 2.5rem; }
+.mark{ width:44px; height:44px; background:#fff; border-radius:9px; padding:3px; display:block; }
+.mark img{ width:100%; height:100%; display:block; }
+h1{
+  font-family:"Gowun Batang",serif; font-weight:700; font-size:2.6rem; line-height:1.2;
+  margin:1.4rem 0 0; letter-spacing:-.02em;
+}
+.sub{ font-size:.95rem; color:var(--ink-2); margin:.7rem 0 0; max-width:34rem; }
+.meta{
+  font-family:"IBM Plex Mono",monospace; font-size:.7rem; letter-spacing:.14em;
+  color:var(--ink-3); margin-top:1.6rem; display:flex; gap:1.2rem; flex-wrap:wrap;
+}
+.meta a{ color:var(--accent); text-decoration:none; border-bottom:1px solid var(--rule); }
+
+nav.toc{
+  display:flex; flex-wrap:wrap; gap:.4rem;
+  margin:2.2rem 0 0; padding:1.1rem 0 0; border-top:1px solid var(--rule);
+}
+nav.toc a{
+  font-family:"IBM Plex Mono",monospace; font-size:.68rem; letter-spacing:.1em;
+  color:var(--ink-2); text-decoration:none;
+  border:1px solid var(--rule); border-radius:999px; padding:.3rem .7rem;
+  transition:border-color .18s,color .18s;
+}
+nav.toc a:hover{ border-color:var(--accent); color:var(--accent); }
+
+/* ---- 섹션 ---- */
+section{ padding-top:3.6rem; }
+.eyeb{
+  font-family:"IBM Plex Mono",monospace; font-size:.65rem; letter-spacing:.2em;
+  color:var(--accent); display:flex; align-items:center; gap:.8rem;
+}
+.eyeb::after{ content:""; flex:1 1 auto; height:1px; background:var(--rule); }
+h2{ font-family:"Gowun Batang",serif; font-weight:700; font-size:1.6rem; margin:.6rem 0 0; letter-spacing:-.01em; }
+h3{ font-family:"Gowun Batang",serif; font-weight:700; font-size:1.05rem; margin:2.2rem 0 .6rem; }
+p{ margin:.9rem 0 0; color:var(--ink-2); font-size:.92rem; max-width:38rem; }
+p strong,li strong{ color:var(--ink); font-weight:500; }
+ul{ margin:.9rem 0 0; padding-left:1.1rem; color:var(--ink-2); font-size:.92rem; max-width:38rem; }
+li{ margin:.35rem 0; }
+
+.card{
+  background:linear-gradient(200deg,var(--page) 0%,var(--page-2) 100%);
+  border:1px solid var(--rule-2); border-radius:.5rem;
+  padding:1.4rem 1.5rem; margin-top:1.4rem;
+  box-shadow:0 1px 3px rgba(0,0,0,.06);
+}
+.card.tight{ padding:1rem 1.1rem; }
+
+.scroll{ overflow-x:auto; }
+table{ width:100%; border-collapse:collapse; font-size:.82rem; font-variant-numeric:tabular-nums; }
+th{
+  text-align:left; font-family:"IBM Plex Mono",monospace; font-weight:500; font-size:.66rem;
+  letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3);
+  padding:0 1rem .55rem 0; border-bottom:1px solid var(--rule); white-space:nowrap;
+}
+td{ padding:.6rem 1rem .6rem 0; border-bottom:1px solid var(--rule-2); color:var(--ink-2); vertical-align:top; }
+td:first-child{ color:var(--ink); font-weight:400; }
+code,.mono{ font-family:"IBM Plex Mono",monospace; font-size:.92em; }
+td code{ color:var(--ink-2); }
+pre{
+  background:var(--code); border:1px solid var(--rule-2); border-radius:.4rem;
+  padding:.9rem 1rem; overflow-x:auto; margin:1.1rem 0 0;
+  font-family:"IBM Plex Mono",monospace; font-size:.76rem; line-height:1.7; color:var(--ink);
+}
+.note-line{ font-size:.8rem; color:var(--ink-3); margin-top:.9rem; }
+
+/* ---- 색 견본 ---- */
+.sw{ display:grid; grid-template-columns:repeat(auto-fill,minmax(9.5rem,1fr)); gap:.7rem; margin-top:1.2rem; }
+.chip{ border:1px solid var(--rule-2); border-radius:.35rem; overflow:hidden; }
+.chip .c{ height:3.2rem; }
+.chip .t{ padding:.5rem .6rem .6rem; }
+.chip b{ display:block; font-family:"IBM Plex Mono",monospace; font-size:.66rem; letter-spacing:.06em; font-weight:500; }
+.chip small{ display:block; font-family:"IBM Plex Mono",monospace; font-size:.62rem; color:var(--ink-3); margin-top:.15rem; }
+.chip span{ display:block; font-size:.7rem; color:var(--ink-2); margin-top:.35rem; line-height:1.5; }
+
+/* ---- 예시 상자 ---- */
+.demo{
+  background:linear-gradient(200deg,var(--page) 0%,var(--page-2) 100%);
+  border:1px solid var(--rule-2); border-radius:.5rem;
+  padding:1.6rem; margin-top:1rem;
+}
+.demo.dark{ background:none; padding:0; border:0; }
+.demo-cap{
+  font-family:"IBM Plex Mono",monospace; font-size:.64rem; letter-spacing:.12em;
+  color:var(--ink-3); margin-top:1.8rem;
+}
+.ui{ font-size:18.5px; line-height:1.62; color:var(--ink); font-family:"IBM Plex Sans KR","Apple SD Gothic Neo",system-ui,sans-serif; font-weight:400; }
+.ui p{ margin:0; max-width:none; }
+.ui .cover, .ui .backcov{ padding:1.6em; border-radius:.3em; }
+.pair{ display:grid; grid-template-columns:1fr 1fr; gap:.9rem; }
+@media (max-width:620px){ .pair{ grid-template-columns:1fr; } }
+
+/* ---- 해부도 ---- */
+.anat{ display:flex; flex-direction:column; gap:.35rem; margin-top:1.2rem; }
+.anat .row{ display:flex; align-items:stretch; gap:.7rem; }
+.anat .lab{
+  flex:0 0 8.5rem; font-family:"IBM Plex Mono",monospace; font-size:.63rem; letter-spacing:.08em;
+  color:var(--ink-3); display:flex; align-items:center; justify-content:flex-end; text-align:right;
+}
+.anat .box{
+  flex:1 1 auto; border:1px dashed var(--rule); border-radius:.25rem;
+  background:var(--accent-soft); padding:.5rem .7rem; font-size:.76rem; color:var(--ink-2);
+}
+.anat .box.tall{ min-height:4.5rem; display:flex; align-items:center; }
+.anat .box.accent{ background:transparent; border-style:solid; }
+@media (max-width:620px){ .anat .lab{ flex-basis:5.2rem; } }
+
+.callout{
+  border-left:2px solid var(--brass); padding:.2rem 0 .2rem 1rem; margin-top:1.3rem;
+  font-size:.88rem; color:var(--ink-2); max-width:38rem;
+}
+.callout b{ color:var(--ink); font-weight:500; }
+:focus-visible{ outline:2px solid var(--focus); outline-offset:2px; }
+footer{ margin-top:5rem; padding-top:1.4rem; border-top:1px solid var(--rule); font-size:.78rem; color:var(--ink-3); }
+
+/* ==== 아래는 page.html 에서 그대로 떼어온 실제 규칙 (예시 렌더용) ==== */
+__DEMO_CSS__
+</style>
+
+<div class="wrap">
+
+<header class="top">
+  <span class="mark"><img src="__LOGO__" alt="온새누리(주)"></span>
+  <h1>온새누리장터 UI 가이드</h1>
+  <p class="sub">공동구매 상담용 안내 페이지의 색·서체·부품과, 상품을 더하거나 고칠 때의 규칙을 정리했습니다. 아래 예시는 설명용으로 다시 그린 것이 아니라 실제 페이지의 CSS를 그대로 가져와 렌더한 것입니다.</p>
+  <div class="meta">
+    <span><a href="https://onsaynuri.com">onsaynuri.com</a></span>
+    <span>10 페이지 · 상품 7종</span>
+    <span>2026.09 기준</span>
+  </div>
+  <nav class="toc">
+    <a href="#color">색</a><a href="#type">서체</a><a href="#page">지면</a>
+    <a href="#anatomy">상품 페이지 구조</a><a href="#parts">부품</a><a href="#photo">사진 규칙</a>
+    <a href="#motion">동작</a><a href="#ops">운영</a>
+  </nav>
+</header>
+
+<!-- ================= 색 ================= -->
+<section id="color">
+  <div class="eyeb"><span>COLOR</span></div>
+  <h2>색</h2>
+  <p>인쇄된 종이를 책상에 올려둔 상태를 화면으로 옮긴 배색입니다. <strong>바탕(desk)</strong> 위에 <strong>지면(page)</strong>이 떠 있고, 글자는 초록기가 도는 먹색을 씁니다. 강조는 짙은 소나무색 하나, 상품번호 같은 부수 정보에만 놋쇠색을 씁니다.</p>
+
+  <h3>라이트</h3>
+  <div class="sw">
+    <div class="chip"><div class="c" style="background:#D6D8D0"></div><div class="t"><b>--desk</b><small>#D6D8D0</small><span>책상 바탕</span></div></div>
+    <div class="chip"><div class="c" style="background:#FAFAF6"></div><div class="t"><b>--page</b><small>#FAFAF6</small><span>지면. 200° 방향으로 page-2 까지 그라데이션</span></div></div>
+    <div class="chip"><div class="c" style="background:#F2F2EB"></div><div class="t"><b>--page-2</b><small>#F2F2EB</small><span>지면 아래쪽</span></div></div>
+    <div class="chip"><div class="c" style="background:#16211C"></div><div class="t"><b>--ink</b><small>#16211C</small><span>제목·본문 강조</span></div></div>
+    <div class="chip"><div class="c" style="background:#4C5A53"></div><div class="t"><b>--ink-2</b><small>#4C5A53</small><span>본문</span></div></div>
+    <div class="chip"><div class="c" style="background:#7C8981"></div><div class="t"><b>--ink-3</b><small>#7C8981</small><span>보조·쪽번호</span></div></div>
+    <div class="chip"><div class="c" style="background:#0E5C4F"></div><div class="t"><b>--accent</b><small>#0E5C4F</small><span>카테고리·바로가기·표지 바탕</span></div></div>
+    <div class="chip"><div class="c" style="background:#E7EEEA"></div><div class="t"><b>--accent-soft</b><small>#E7EEEA</small><span>사진 자리표시·호버 바탕</span></div></div>
+    <div class="chip"><div class="c" style="background:#A5731F"></div><div class="t"><b>--brass</b><small>#A5731F</small><span>상품번호</span></div></div>
+  </div>
+
+  <h3>다크</h3>
+  <div class="sw">
+    <div class="chip"><div class="c" style="background:#0D100F"></div><div class="t"><b>--desk</b><small>#0D100F</small><span>바탕</span></div></div>
+    <div class="chip"><div class="c" style="background:#1A1E1C"></div><div class="t"><b>--page</b><small>#1A1E1C</small><span>지면</span></div></div>
+    <div class="chip"><div class="c" style="background:#E4E8E2"></div><div class="t"><b>--ink</b><small>#E4E8E2</small><span>제목</span></div></div>
+    <div class="chip"><div class="c" style="background:#A3AEA7"></div><div class="t"><b>--ink-2</b><small>#A3AEA7</small><span>본문</span></div></div>
+    <div class="chip"><div class="c" style="background:#63C3A9"></div><div class="t"><b>--accent</b><small>#63C3A9</small><span>강조. 어두운 바탕에서 대비 확보</span></div></div>
+    <div class="chip"><div class="c" style="background:#D2A44B"></div><div class="t"><b>--brass</b><small>#D2A44B</small><span>상품번호</span></div></div>
+  </div>
+
+  <div class="callout">
+    <b>테마는 세 가지 상태로 다룹니다.</b> 사용자가 라이트/다크를 명시하면 <code>data-theme</code> 가 붙고, 기본값인 &ldquo;시스템 설정&rdquo;일 때는 아무것도 붙지 않아 <code>prefers-color-scheme</code> 만으로 갈립니다. 그래서 색은 반드시 <code>:root</code> 에 전체를 정의하고, 미디어쿼리와 <code>[data-theme]</code> 에서는 토큰만 다시 씁니다. 어떤 색도 미디어쿼리 안에서만 정의하지 않습니다.
+  </div>
+
+  <h3>고정색</h3>
+  <p>표지·맺음말은 테마와 무관하게 같은 인쇄물로 보여야 해서 토큰을 쓰지 않고 값을 직접 박았습니다. 표지 <code>#0E5C4F → #093F36 → #062B25</code>, 맺음말 <code>#0B3A33 → #062B25</code>, 금박 글자 <code>#E6D6AE</code>·<code>#D9BE7E</code>, 네이버 초록 <code>#03C75A</code>, 사진 카드 바탕 <code>#FFFFFF</code>.</p>
+
+  <div class="callout">
+    <b>바뀐 점.</b> 초기 시안 대비 <code>--accent-soft</code> 가 <code>#DCE7E2 → #E7EEEA</code> 로 한 단계 옅어졌습니다. 그보다 체감이 큰 변화는 사진이 들어가면서 생겼습니다 — 사진 칸은 자리표시일 때 연한 민트(<code>--accent-soft</code>)지만, 사진이 채워지면 흰색 카드(<code>#FFFFFF</code>)가 됩니다. 상품 페이지 대부분이 채워지면서 전체 인상이 밝고 희게 바뀌었습니다. 색을 바꾼 게 아니라 면적이 바뀐 것입니다.
+  </div>
+</section>
+
+<!-- ================= 서체 ================= -->
+<section id="type">
+  <div class="eyeb"><span>TYPE</span></div>
+  <h2>서체</h2>
+  <p>세 가지를 역할별로 씁니다. 섞어 쓰지 않습니다.</p>
+  <div class="scroll"><table>
+    <thead><tr><th>서체</th><th>역할</th><th>쓰이는 곳</th></tr></thead>
+    <tbody>
+      <tr><td style="font-family:'Gowun Batang',serif;font-size:1.05rem">고운바탕</td><td>제목</td><td>상품명, 표지 제목, Thank You!, 인사말 문구</td></tr>
+      <tr><td>IBM Plex Sans KR</td><td>본문</td><td>설명, 캐치프레이즈, 상품명 수식어</td></tr>
+      <tr><td class="mono">IBM&nbsp;Plex&nbsp;Mono</td><td>수치·라벨</td><td>상품번호, 규격, 쪽번호, 카테고리, 바로가기</td></tr>
+    </tbody>
+  </table></div>
+  <p>고운바탕은 부리(세리프)가 있는 명조 계열이라 &ldquo;정성&rdquo;·&ldquo;전통&rdquo; 쪽 인상을 만듭니다. 수치를 모노스페이스로 돌린 건 <code>1.02kg (170g × 6개입)</code> 같은 값이 자릿수 맞춰 읽히게 하기 위해서입니다.</p>
+
+  <h3>크기 체계</h3>
+  <p>모든 글자는 지면 너비에 비례합니다. 기준값 <code>1em = 지면너비 ÷ 28</code>, 데스크톱에서 약 <strong>18.5px</strong>입니다. 화면이 작아지면 지면이 줄고 글자도 같은 비율로 줄어 조판이 흐트러지지 않습니다.</p>
+  <div class="scroll"><table>
+    <thead><tr><th>배수</th><th>px*</th><th>쓰이는 곳</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">2.5em</td><td class="mono">46</td><td>표지 제목</td></tr>
+      <tr><td class="mono">2.1em</td><td class="mono">39</td><td>Thank You!</td></tr>
+      <tr><td class="mono">1.66em</td><td class="mono">31</td><td>상품명</td></tr>
+      <tr><td class="mono">1.2em</td><td class="mono">22</td><td>인사말 문구</td></tr>
+      <tr><td class="mono">0.84em</td><td class="mono">16</td><td>바로가기 바의 스토어명</td></tr>
+      <tr><td class="mono">0.80em</td><td class="mono">15</td><td>캐치프레이즈</td></tr>
+      <tr><td class="mono">0.78em</td><td class="mono">14</td><td>한 줄 설명</td></tr>
+      <tr><td class="mono">0.74em</td><td class="mono">14</td><td>브랜드 수식어, 연락처</td></tr>
+      <tr><td class="mono">0.66em</td><td class="mono">12</td><td>규격</td></tr>
+      <tr><td class="mono">0.62em</td><td class="mono">11</td><td>카테고리·상품번호</td></tr>
+      <tr><td class="mono">0.60em</td><td class="mono">11</td><td>쪽번호, 바로가기</td></tr>
+      <tr><td class="mono">0.58em</td><td class="mono">11</td><td>사진 자리표시 글자</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note-line">* 데스크톱 기준 근사값. 화면 크기에 따라 달라집니다.</p>
+</section>
+
+<!-- ================= 지면 ================= -->
+<section id="page">
+  <div class="eyeb"><span>PAGE</span></div>
+  <h2>지면</h2>
+  <p>한 번에 한 장만 보입니다. 지면은 화면에 맞춰 커지되, 위아래 도구 막대 자리를 뺀 높이를 넘지 않습니다.</p>
+  <div class="scroll"><table>
+    <thead><tr><th></th><th>데스크톱 (721px~)</th><th>모바일 (~720px)</th></tr></thead>
+    <tbody>
+      <tr><td>비율</td><td>A4 세로 (1 : 1.414)</td><td>화면을 채움 (최대 1 : 1.66)</td></tr>
+      <tr><td>높이</td><td class="mono">min(100svh − 10.4rem, 폭×1.414, 780px)</td><td class="mono">min(100svh − 8.4rem, 폭×1.66)</td></tr>
+      <tr><td>너비</td><td class="mono">높이 ÷ 1.414</td><td class="mono">100vw − 1.6rem</td></tr>
+      <tr><td>여백</td><td class="mono">2.4em / 2.4em / 1.4em</td><td>동일 (비례)</td></tr>
+      <tr><td>기준 글자</td><td class="mono">너비 ÷ 28</td><td>동일</td></tr>
+    </tbody>
+  </table></div>
+  <p><code>svh</code> 를 쓰는 이유는 모바일 브라우저의 주소창이 접혔다 펴질 때 지면이 출렁이지 않게 하기 위해서입니다. 노치·홈바 영역은 <code>env(safe-area-inset)</code> 으로 피합니다.</p>
+</section>
+
+<!-- ================= 해부도 ================= -->
+<section id="anatomy">
+  <div class="eyeb"><span>ANATOMY</span></div>
+  <h2>상품 페이지 구조</h2>
+  <p>여덟 개 상품 페이지가 모두 같은 뼈대를 씁니다. 원본 HWP 의 한 칸짜리 표를 세로 편집으로 다시 짠 것으로, 위에서 아래로 <strong>분류 → 이름 → 근거 → 그림 → 한마디 → 행동</strong> 순서입니다.</p>
+  <div class="anat">
+    <div class="row"><div class="lab">eyebrow / pno</div><div class="box accent">커피 ───────────── 01-001</div></div>
+    <div class="row"><div class="lab">kicker-p</div><div class="box accent">ILJO 시그니처</div></div>
+    <div class="row"><div class="lab">h2.t</div><div class="box accent" style="font-family:'Gowun Batang',serif;font-weight:700">콜드브루 원액 1L</div></div>
+    <div class="row"><div class="lab">pspec</div><div class="box accent">NOMAD BLEND</div></div>
+    <div class="row"><div class="lab">catch</div><div class="box accent">&ldquo;필요할 때 언제든 꺼내&hellip;&rdquo;</div></div>
+    <div class="row"><div class="lab">shots</div><div class="box tall">사진 1~3칸</div></div>
+    <div class="row"><div class="lab">tagline</div><div class="box accent">깊은 풍미는 그대로, 보관은 더욱 자유롭게</div></div>
+    <div class="row"><div class="lab">storebar</div><div class="box accent">네이버 · 온새누리장터 · 바로가기</div></div>
+    <div class="row"><div class="lab">folio</div><div class="box accent">커피 ───────────── 03</div></div>
+  </div>
+  <p class="note-line">캐치프레이즈 위와 사진 아래에 자동 여백이 반씩 들어갑니다. 그래서 글이 짧든 길든 사진 덩어리가 지면 가운데쯤에 앉고, 바로가기 바는 항상 아래에 붙습니다.</p>
+</section>
+
+<!-- ================= 부품 ================= -->
+<section id="parts">
+  <div class="eyeb"><span>COMPONENTS</span></div>
+  <h2>부품</h2>
+  <p>아래는 실제 페이지의 CSS 를 그대로 가져와 렌더한 것입니다. 화면에 보이는 그대로가 제품에 나갑니다.</p>
+
+  <div class="demo-cap">머리 — 카테고리 · 상품번호 · 수식어 · 상품명 · 규격</div>
+  <div class="demo"><div class="ui">
+    <div class="eyebrow"><span>한우</span><i class="ln"></i><span class="pno">01-007(A)</span></div>
+    <div class="kicker-p">궁중레시피 · 명품본가</div>
+    <h2 class="t">한우 떡갈비 선물세트</h2>
+    <div class="pspec">실속형 · 1.02kg (170g × 6개입)</div>
+  </div></div>
+
+  <div class="demo-cap">캐치프레이즈 — 원본 홍보물의 따옴표 문장. 왼쪽 세로줄은 accent-soft</div>
+  <div class="demo"><div class="ui">
+    <p class="catch">화학적인 발색제를 사용하지 않고 우리땅 한우, 우리땅 한돈과 비법소스로만 전통의 맛을 구현합니다.</p>
+  </div></div>
+
+  <div class="demo-cap">사진 칸 — 1칸 / 2칸 / 3칸. 채워지지 않은 칸은 점선 자리표시</div>
+  <div class="demo"><div class="ui">
+    <div class="shots s3">
+      <figure class="shot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.2" y="5.2" width="17.6" height="13.6" rx="2.2"/><circle cx="9" cy="10.2" r="1.6"/><path d="m4.4 17 4.4-4.2 3.3 3 3.1-2.6 4.4 3.8"/></svg><figcaption>사진 한컷</figcaption></figure>
+      <figure class="shot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.2" y="5.2" width="17.6" height="13.6" rx="2.2"/><circle cx="9" cy="10.2" r="1.6"/><path d="m4.4 17 4.4-4.2 3.3 3 3.1-2.6 4.4 3.8"/></svg><figcaption>사진 한컷</figcaption></figure>
+      <figure class="shot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.2" y="5.2" width="17.6" height="13.6" rx="2.2"/><circle cx="9" cy="10.2" r="1.6"/><path d="m4.4 17 4.4-4.2 3.3 3 3.1-2.6 4.4 3.8"/></svg><figcaption>사진 한컷</figcaption></figure>
+    </div>
+  </div></div>
+
+  <div class="demo-cap">한 줄 설명 + 바로가기 바 — 3등분 정렬, 스토어명이 정가운데</div>
+  <div class="demo"><div class="ui">
+    <p class="tagline">입안에 가득차는 풍부한 식감</p>
+    <div style="height:1em"></div>
+    <a class="storebar" href="https://m.smartstore.naver.com/onsaynuri" target="_blank" rel="noopener">
+      <span class="sb-l"><span class="nmark"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="4.5" fill="#03C75A"/><path d="M14.2 12.3 9.9 6.2H6.2v11.6h3.6v-6.1l4.3 6.1h3.7V6.2h-3.6v6.1Z" fill="#fff"/></svg></span><i>네이버</i></span>
+      <span class="sb-c">온새누리장터</span>
+      <span class="sb-r">바로가기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></span>
+    </a>
+    <div class="folio"><span>한우</span><span class="fl"></span><span class="num">07</span></div>
+  </div></div>
+
+  <div class="demo-cap">표지 · 맺음말 — 테마와 무관하게 항상 짙은 초록. 로고는 흰 판 위에</div>
+  <div class="demo dark"><div class="ui"><div class="pair">
+    <div class="cover">
+      <div class="logoplate" style="width:6em"><img src="__LOGO__" alt="온새누리(주)"></div>
+      <div class="hair"></div>
+      <div class="kicker">Onsaenuri Jangteo</div>
+      <div style="font-family:'Gowun Batang',serif;font-weight:700;font-size:1.7em;line-height:1.2;margin:.3em 0 0;color:#fff">온새누리장터<br>이야기</div>
+      <div class="title2">정성을 담아,<br>건강한 일상을 전합니다.</div>
+      <div class="hair"></div>
+      <div class="foot"><span>공동구매 상담용 안내</span><span>2026</span></div>
+    </div>
+    <div class="backcov">
+      <div class="thanks" style="margin-top:0">Thank You!</div>
+      <p class="thanks-ko">온새누리장터와 함께해 주셔서<br>감사합니다.</p>
+      <p class="thanks-q">&ldquo;좋은 인연, 좋은 상품으로 이어가겠습니다.&rdquo;</p>
+      <div class="hair" style="margin-top:1.2em"></div>
+      <div class="kv">
+        <div><b>공동구매 상담</b><span>0503-1949-7403</span></div>
+        <div><b>E-Mail</b><span>onc870223@naver.com</span></div>
+      </div>
+    </div>
+  </div></div></div>
+
+  <div class="demo-cap">하단 조작부 — 이전/다음, 페이지 점, 쪽수</div>
+  <div class="demo"><div class="ui" style="display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap">
+    <button class="nav" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5 8 12l7 7"/></svg>이전</button>
+    <span class="dots"><i class="dot"></i><i class="dot"></i><i class="dot on"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i></span>
+    <span class="counter">03 / 10</span>
+    <button class="nav" type="button">다음<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></button>
+  </div></div>
+</section>
+
+<!-- ================= 사진 ================= -->
+<section id="photo">
+  <div class="eyeb"><span>PHOTO</span></div>
+  <h2>사진 규칙</h2>
+  <div class="scroll"><table>
+    <thead><tr><th>항목</th><th>값</th><th>이유</th></tr></thead>
+    <tbody>
+      <tr><td>크기</td><td class="mono">긴 변 520~560px</td><td>가장 큰 표시 크기(2배 화면)를 덮는 최소치</td></tr>
+      <tr><td>형식</td><td class="mono">WebP q78~80</td><td>같은 화질에서 JPEG보다 30~40% 작음</td></tr>
+      <tr><td>칸 비율</td><td class="mono">4 : 5 세로</td><td>선물세트 사진이 대체로 세로로 길다</td></tr>
+      <tr><td>맞춤</td><td class="mono">object-fit: contain</td><td>잘라내지 않는다. 상품 박스가 잘리면 안 되므로</td></tr>
+      <tr><td>바탕</td><td class="mono">#FFFFFF</td><td>비율이 다른 사진의 남는 자리. 스튜디오 흰 배경과 이어짐</td></tr>
+      <tr><td>1칸일 때</td><td class="mono">12em 가운데</td><td>꽉 채우면 세로가 길어져 아래 바로가기 바가 밀린다</td></tr>
+      <tr><td>움직이는 사진</td><td class="mono">애니메이션 WebP</td><td>GIF 9.4MB → 462KB (440px · 60프레임 · q45)</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout"><b>칸 수와 사진 수를 반드시 맞춥니다.</b> 사진보다 칸이 많으면 점선 자리표시가 남아 미완성으로 보입니다. <code>build.py</code> 의 <code>shots=N</code> 과 <code>photo_data.py</code> 의 목록 길이를 같게 두세요.</div>
+  <p><strong>순서 원칙</strong> — 완성/대표 컷 → 원물·상세 → 포장·구성. 무엇인지 먼저 알리고, 품질을 보이고, 어떻게 받는지로 닫습니다.</p>
+</section>
+
+<!-- ================= 동작 ================= -->
+<section id="motion">
+  <div class="eyeb"><span>MOTION</span></div>
+  <h2>동작</h2>
+  <div class="scroll"><table>
+    <thead><tr><th>항목</th><th>값</th></tr></thead>
+    <tbody>
+      <tr><td>전환</td><td class="mono">transform .46s cubic-bezier(.32, .72, .3, 1)</td></tr>
+      <tr><td>끌기</td><td>손끝을 실시간으로 따라옴. 폭의 <span class="mono">16%</span> 이상 끌면 넘어감</td></tr>
+      <tr><td>방향 잠금</td><td>움직임 <span class="mono">6px</span> 넘는 순간 가로/세로 결정. 가로일 때만 포인터 붙잡음</td></tr>
+      <tr><td>양 끝</td><td>첫 장·마지막 장에서 저항 <span class="mono">×0.28</span></td></tr>
+      <tr><td>키보드</td><td class="mono">← → PageUp PageDown Home End</td></tr>
+      <tr><td>점 표시</td><td>현재 페이지만 알약 모양으로 늘어남 <span class="mono">7px → 20px</span></td></tr>
+      <tr><td>동작 최소화</td><td><span class="mono">prefers-reduced-motion</span> 이면 전환 시간 0</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout"><b>함정 두 가지.</b> 포인터를 누르는 즉시 붙잡으면(<code>setPointerCapture</code>) 그 뒤 클릭이 링크에 닿지 않아 <code>바로가기</code>가 죽습니다. 실제로 가로로 끌기 시작한 뒤에만 붙잡습니다. 또 사진 위에서는 브라우저가 &ldquo;이미지 끌어다 놓기&rdquo;를 시작해 스와이프를 가로채므로 <code>draggable=&quot;false&quot;</code> 로 막았습니다.</div>
+</section>
+
+<!-- ================= 운영 ================= -->
+<section id="ops">
+  <div class="eyeb"><span>OPERATIONS</span></div>
+  <h2>운영</h2>
+  <p>내용은 전부 <code>build.py</code> 한 곳에서 나옵니다. HTML 을 직접 고치지 않습니다.</p>
+  <div class="scroll"><table>
+    <thead><tr><th>파일</th><th>역할</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">build.py</td><td>상품 데이터·링크·칸 수. 여기만 고치면 됨</td></tr>
+      <tr><td class="mono">photo_data.py</td><td>상품번호별 사진 목록 (data URI)</td></tr>
+      <tr><td class="mono">logo_data.py</td><td>로고</td></tr>
+      <tr><td class="mono">page.html</td><td>레이아웃·스타일·스크립트 원본</td></tr>
+      <tr><td class="mono">index.html</td><td>자동 생성물. 직접 고치지 말 것</td></tr>
+      <tr><td class="mono">assets/</td><td>원본 이미지 보관</td></tr>
+      <tr><td class="mono">CNAME</td><td>도메인 연결. 지우면 끊김</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>자주 하는 작업</h3>
+  <pre>상품 잠시 빼기      PRODUCTS 항목에 hide=True
+사진 칸 수 바꾸기    shots=1 / 2 / 3
+사진 순서 바꾸기     photo_data.py 목록 순서
+상품 링크 걸기      PRODUCT_URLS["01-00X"] = "..."
+스토어 홈 바꾸기     STORE_URL</pre>
+  <pre>python3 build.py
+git add -A &amp;&amp; git commit -m "수정" &amp;&amp; git push</pre>
+  <p class="note-line">푸시하면 2~3분 뒤 onsaynuri.com 에 반영됩니다.</p>
+
+  <h3>손대면 안 되는 것</h3>
+  <ul>
+    <li>Cloudflare 프록시(주황 구름)를 켜면 GitHub 이 인증서를 갱신하지 못해 90일 뒤 HTTPS 경고가 뜹니다. 꼭 켜야 하면 SSL/TLS 를 <code>Full (strict)</code> 로 먼저 바꾸세요.</li>
+    <li>저장소 루트의 <code>CNAME</code> 파일 — 도메인 연결을 붙잡고 있습니다.</li>
+    <li>Artifact 는 외부 이미지를 불러오지 못합니다. 사진·로고를 파일 링크로 바꾸면 그쪽에서 깨집니다.</li>
+  </ul>
+
+  <h3>지금 상태</h3>
+  <div class="scroll"><table>
+    <thead><tr><th>구성</th><th>내용</th></tr></thead>
+    <tbody>
+      <tr><td>페이지</td><td>10장 — 표제부 · 인사말 · 상품 7 · 맺음말</td></tr>
+      <tr><td>숨김</td><td>01-002 한돈3종세트, 01-005 찐보리굴비, 01-006 매콤탱쭈꾸미 (스토어 미등록)</td></tr>
+      <tr><td>사진</td><td>콜드브루 2 · 왕돈마호크 3 · 이중섭 3 · 나머지 각 1</td></tr>
+      <tr><td>빈 칸</td><td>없음</td></tr>
+      <tr><td>용량</td><td>약 1.2MB (움직이는 커피 사진이 절반)</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<footer>온새누리(주) · 온새누리장터 공동구매 상담용 안내 · 이 문서는 <span class="mono">make_guide.py</span> 로 <span class="mono">page.html</span> 에서 생성됩니다.</footer>
+</div>
