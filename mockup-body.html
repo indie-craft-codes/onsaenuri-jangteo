@@ -1,0 +1,259 @@
+<title>온새누리장터 책자 구조 변경안</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@300;400;500;600&display=swap">
+<style>
+:root{
+  --desk:#D6D8D0; --desk-2:#C8CBC2; --page:#FAFAF6; --page-2:#F2F2EB;
+  --ink:#16211C; --ink-2:#4C5A53; --ink-3:#7C8981;
+  --accent:#0E5C4F; --accent-soft:#E7EEEA; --brass:#A5731F;
+  --rule:rgba(22,33,28,.16); --rule-2:rgba(22,33,28,.08);
+  --bar-ink:#2C3630; --bar-line:rgba(22,33,28,.18); --focus:#0E5C4F; --code:#EDEFE8;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --desk:#0D100F; --desk-2:#141817; --page:#1A1E1C; --page-2:#161A18;
+  --ink:#E4E8E2; --ink-2:#A3AEA7; --ink-3:#77837C;
+  --accent:#63C3A9; --accent-soft:#1E2E2A; --brass:#D2A44B;
+  --rule:rgba(228,232,226,.20); --rule-2:rgba(228,232,226,.10);
+  --bar-ink:#C4CDC7; --bar-line:rgba(228,232,226,.16); --focus:#63C3A9; --code:#121715; } }
+:root[data-theme="dark"]{
+  --desk:#0D100F; --desk-2:#141817; --page:#1A1E1C; --page-2:#161A18;
+  --ink:#E4E8E2; --ink-2:#A3AEA7; --ink-3:#77837C;
+  --accent:#63C3A9; --accent-soft:#1E2E2A; --brass:#D2A44B;
+  --rule:rgba(228,232,226,.20); --rule-2:rgba(228,232,226,.10);
+  --bar-ink:#C4CDC7; --bar-line:rgba(228,232,226,.16); --focus:#63C3A9; --code:#121715; }
+
+*{ box-sizing:border-box; }
+body{ margin:0; background:var(--desk); color:var(--ink);
+  font-family:"IBM Plex Sans KR","Apple SD Gothic Neo",system-ui,sans-serif;
+  font-weight:300; line-height:1.75; -webkit-font-smoothing:antialiased; }
+.wrap{ max-width:60rem; margin:0 auto; padding:0 1.4rem 6rem; }
+
+header.top{ padding:4rem 0 2rem; }
+.mark{ width:42px; height:42px; background:#fff; border-radius:9px; padding:3px; display:block; }
+.mark img{ width:100%; height:100%; display:block; }
+h1{ font-family:"Gowun Batang",serif; font-weight:700; font-size:2.5rem; line-height:1.2; margin:1.3rem 0 0; letter-spacing:-.02em; }
+.sub{ font-size:.95rem; color:var(--ink-2); margin:.7rem 0 0; max-width:36rem; }
+.meta{ font-family:"IBM Plex Mono",monospace; font-size:.7rem; letter-spacing:.14em; color:var(--ink-3); margin-top:1.4rem; display:flex; gap:1.2rem; flex-wrap:wrap; }
+
+section{ padding-top:3.4rem; }
+.eyeb{ font-family:"IBM Plex Mono",monospace; font-size:.65rem; letter-spacing:.2em; color:var(--accent); display:flex; align-items:center; gap:.8rem; }
+.eyeb::after{ content:""; flex:1 1 auto; height:1px; background:var(--rule); }
+h2{ font-family:"Gowun Batang",serif; font-weight:700; font-size:1.55rem; margin:.6rem 0 0; letter-spacing:-.01em; }
+h3{ font-family:"Gowun Batang",serif; font-weight:700; font-size:1.02rem; margin:2rem 0 .5rem; }
+p{ margin:.9rem 0 0; color:var(--ink-2); font-size:.92rem; max-width:38rem; }
+p strong, li strong, td strong{ color:var(--ink); font-weight:500; }
+ul{ margin:.9rem 0 0; padding-left:1.1rem; color:var(--ink-2); font-size:.92rem; max-width:38rem; }
+li{ margin:.35rem 0; }
+code,.mono{ font-family:"IBM Plex Mono",monospace; font-size:.92em; }
+.ph{ border-bottom:1px dashed var(--ink-3); color:var(--ink-3); padding:0 .2em; }
+
+.scroll{ overflow-x:auto; }
+table{ width:100%; border-collapse:collapse; font-size:.82rem; font-variant-numeric:tabular-nums; margin-top:1.2rem; }
+th{ text-align:left; font-family:"IBM Plex Mono",monospace; font-weight:500; font-size:.66rem; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3); padding:0 1rem .55rem 0; border-bottom:1px solid var(--rule); white-space:nowrap; }
+td{ padding:.6rem 1rem .6rem 0; border-bottom:1px solid var(--rule-2); color:var(--ink-2); vertical-align:top; }
+td:first-child{ color:var(--ink); font-weight:400; }
+pre{ background:var(--code); border:1px solid var(--rule-2); border-radius:.4rem; padding:1rem 1.1rem; overflow-x:auto; margin:1.2rem 0 0; font-family:"IBM Plex Mono",monospace; font-size:.76rem; line-height:1.8; color:var(--ink); }
+.callout{ border-left:2px solid var(--brass); padding:.2rem 0 .2rem 1rem; margin-top:1.3rem; font-size:.88rem; color:var(--ink-2); max-width:38rem; }
+.callout b{ color:var(--ink); font-weight:500; }
+.note-line{ font-size:.8rem; color:var(--ink-3); margin-top:.9rem; }
+
+/* 기기 틀 */
+.devices{ display:flex; gap:1.4rem; flex-wrap:wrap; margin-top:1.4rem; }
+.device{ flex:0 0 auto; }
+.device .cap{ font-family:"IBM Plex Mono",monospace; font-size:.64rem; letter-spacing:.12em; color:var(--ink-3); margin-bottom:.55rem; }
+.screen{ width:340px; border-radius:1.1rem; overflow:hidden; box-shadow:0 10px 26px rgba(0,0,0,.2), 0 2px 6px rgba(0,0,0,.12); }
+.ui .slide{ display:flex; flex-direction:column; width:340px; height:564px;
+  background:linear-gradient(200deg,var(--page) 0%,var(--page-2) 100%);
+  font-size:12.1px; line-height:1.62; color:var(--ink); font-weight:400; overflow:hidden; }
+.ui .pg{ position:relative; flex:1 1 auto; display:flex; flex-direction:column; padding:2.4em 2.4em 1.4em; }
+.ui p{ margin:0; max-width:none; }
+.ui img{ -webkit-user-drag:none; }
+
+/* 진입부 (새 화면) — page.html 에 아직 없는 규칙이라 여기서 정의 */
+.ui .lede{ font-size:.8em; color:var(--ink-3); font-weight:300; margin:.55em 0 0; }
+.ui .toc-list{ display:flex; flex-direction:column; gap:.7em; margin:auto 0; }
+.ui .toc-item{ display:flex; align-items:center; gap:.9em; padding:1em .9em; text-decoration:none; color:inherit;
+  border:1px solid var(--rule); border-radius:.35em; transition:border-color .18s, background .18s; }
+.ui .toc-item:hover{ border-color:var(--accent); background:var(--accent-soft); }
+.ui .tn{ flex:0 0 auto; font-family:"IBM Plex Mono",monospace; font-size:.74em; letter-spacing:.1em; color:var(--brass); }
+.ui .tt{ flex:1 1 auto; min-width:0; }
+.ui .tt b{ display:block; font-family:"Gowun Batang",serif; font-size:1.02em; font-weight:700; line-height:1.3; }
+.ui .tt i{ display:block; font-style:normal; font-size:.66em; color:var(--ink-3); margin-top:.3em; }
+.ui .toc-item > svg{ flex:0 0 auto; width:1em; height:1em; color:var(--accent); }
+
+/* 페이지 스트립 */
+.strip{ display:grid; grid-template-columns:repeat(auto-fill,minmax(10.5rem,1fr)); gap:.55rem; margin-top:1.1rem; }
+.pcard{ border:1px solid var(--rule-2); border-radius:.35rem; padding:.6rem .7rem; background:linear-gradient(200deg,var(--page) 0%,var(--page-2) 100%); min-height:4.6rem; display:flex; flex-direction:column; }
+.pcard .pn{ font-family:"IBM Plex Mono",monospace; font-size:.62rem; letter-spacing:.1em; color:var(--brass); }
+.pcard .pt{ font-size:.78rem; color:var(--ink); margin-top:.2rem; line-height:1.4; font-weight:400; }
+.pcard .ps{ font-family:"IBM Plex Mono",monospace; font-size:.58rem; color:var(--ink-3); margin-top:auto; padding-top:.35rem; }
+.pcard.fixed{ background:var(--accent-soft); }
+.pcard.off{ opacity:.45; border-style:dashed; background:none; }
+.pcard.off .pn{ color:var(--ink-3); }
+
+/* 흐름도 */
+.flow{ margin-top:1.3rem; display:flex; flex-direction:column; gap:.5rem; }
+.flow .lane{ display:flex; align-items:center; gap:.5rem; flex-wrap:wrap; }
+.flow .node{ border:1px solid var(--rule); border-radius:.3rem; padding:.45rem .75rem; font-size:.78rem; background:linear-gradient(200deg,var(--page) 0%,var(--page-2) 100%); }
+.flow .node.entry{ border-color:var(--accent); color:var(--accent); font-weight:500; }
+.flow .node.dim{ color:var(--ink-3); }
+.flow .arr{ width:14px; height:14px; color:var(--ink-3); flex:0 0 auto; }
+.flow .lane .pad{ flex:0 0 7.4rem; }
+@media (max-width:620px){ .flow .lane .pad{ display:none; } }
+
+.cmp{ display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-top:1.2rem; }
+@media (max-width:620px){ .cmp{ grid-template-columns:1fr; } }
+.cmp > div{ border:1px solid var(--rule-2); border-radius:.4rem; padding:.9rem 1rem; }
+.cmp h4{ margin:0 0 .5rem; font-family:"IBM Plex Mono",monospace; font-size:.64rem; letter-spacing:.14em; color:var(--ink-3); font-weight:500; }
+.bar{ display:flex; align-items:center; gap:.5rem; font-size:.8rem; color:var(--bar-ink); }
+.bar .bm{ width:18px; height:18px; background:#fff; border-radius:4px; padding:2px; flex:0 0 auto; }
+.bar .bm img{ width:100%; height:100%; display:block; }
+.bar .sep{ width:1px; height:11px; background:var(--bar-line); }
+.bar .sm{ font-family:"IBM Plex Mono",monospace; font-size:.6rem; letter-spacing:.12em; color:var(--ink-3); }
+.bar .sup{ color:var(--accent); font-weight:500; }
+
+:focus-visible{ outline:2px solid var(--focus); outline-offset:2px; }
+footer{ margin-top:5rem; padding-top:1.4rem; border-top:1px solid var(--rule); font-size:.78rem; color:var(--ink-3); }
+__DEMO__
+</style>
+
+<div class="wrap">
+
+<header class="top">
+  <span class="mark"><img src="__LOGO__" alt="온새누리(주)"></span>
+  <h1>책자 구조 변경안</h1>
+  <p class="sub">공급사가 둘이 되면서 바뀌는 구조입니다. 진입부에서 책자를 고르고, 고른 책자 안은 지금과 똑같이 넘어갑니다. 아래 화면은 설명용 그림이 아니라 실제 페이지 CSS로 렌더한 것입니다.</p>
+  <div class="meta"><span>공급사 2 · 책자 2</span><span>상품 01-xxx 7종 · 02-xxx 14종</span><span>목업 2026.10</span></div>
+</header>
+
+<section>
+  <div class="eyeb"><span>FINDING</span></div>
+  <h2>상품번호가 이미 공급사를 나누고 있습니다</h2>
+  <p>새로 받은 HWP를 열어 보니 떡류 상품이 전부 <strong>02-</strong>로 시작합니다. 기존 상품은 전부 <strong>01-</strong>입니다. 공급사 구분을 새로 만들 필요가 없습니다 — <strong>번호 앞 두 자리가 곧 공급사</strong>입니다.</p>
+  <pre>01-001  콜드브루          02-001(A) 더블치즈떡 · 더블치즈
+01-003  왕돈마호크         02-002(A) 더블크림떡 · 치즈크림
+01-007  한우 떡갈비        02-005(C) 설기 3종 · 밤설기
+   ↑                          ↑
+ 공급사 01                 공급사 02</pre>
+  <p>덕분에 상품 데이터는 한 곳에 그대로 두고, 책자는 "01로 시작하는 것"·"02로 시작하는 것"만 담으면 됩니다. 나중에 한 상품을 두 책자에 넣고 싶어지면 그때 목록에 번호만 한 번 더 적으면 됩니다.</p>
+</section>
+
+<section>
+  <div class="eyeb"><span>FLOW</span></div>
+  <h2>전체 흐름</h2>
+  <div class="flow">
+    <div class="lane">
+      <span class="node entry">진입부 · 책자 선택</span>
+      <svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg>
+      <span class="node">표지</span>
+      <svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg>
+      <span class="node">인사말</span>
+      <svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg>
+      <span class="node dim">01 상품 7장</span>
+      <svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg>
+      <span class="node">맺음말</span>
+    </div>
+    <div class="lane">
+      <span class="pad"></span>
+      <span class="node">표지</span>
+      <svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg>
+      <span class="node">인사말</span>
+      <svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg>
+      <span class="node dim">02 상품 14장</span>
+      <svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg>
+      <span class="node">맺음말</span>
+    </div>
+  </div>
+  <p><strong>표지 · 인사말 · 맺음말은 두 책자가 공유합니다.</strong> 상품만 갈아끼웁니다. 진입부는 덱의 0번 장이라, 왼쪽으로 밀면 들어가고 표지에서 오른쪽으로 밀면 다시 나옵니다. 따로 버튼이 없습니다.</p>
+</section>
+
+<section>
+  <div class="eyeb"><span>SCREENS</span></div>
+  <h2>화면</h2>
+  <p>실제 비율(모바일 세로)로 렌더했습니다. 진입부만 새로 만들고 나머지는 지금 그대로입니다.</p>
+  <div class="devices">
+    <div class="device">
+      <div class="cap">새로 — 진입부</div>
+      <div class="screen">__ENTRY__</div>
+    </div>
+    <div class="device">
+      <div class="cap">그대로 — 표지</div>
+      <div class="screen">__COVER__</div>
+    </div>
+    <div class="device">
+      <div class="cap">그대로 — 상품 (02 책자 예시)</div>
+      <div class="screen">__PROD__</div>
+    </div>
+  </div>
+  <div class="callout"><b>공급사 이름이 비어 있습니다.</b> 진입부에 들어갈 공급사명을 아직 모릅니다. 지금은 점선 자리표시로 뒀습니다. 이름을 모르는 채로도 품목군(<code>한우 · 한돈 · 커피 · 아트</code> / <code>떡 · 전통 디저트</code>)만으로 구분은 됩니다.</div>
+</section>
+
+<section>
+  <div class="eyeb"><span>BOOKLET 01</span></div>
+  <h2>한우 · 한돈 · 커피 · 아트 <span class="mono" style="font-size:.8rem;color:var(--ink-3)">__TOT01__장</span></h2>
+  <p>지금 onsaynuri.com 에 올라가 있는 책자 그대로입니다. 바뀌는 것이 없습니다.</p>
+  <div class="strip">__ST01__</div>
+  <p class="note-line">점선은 스토어에 상품이 없어 숨겨둔 것입니다. <code>hide=True</code> 한 줄만 지우면 돌아옵니다.</p>
+</section>
+
+<section>
+  <div class="eyeb"><span>BOOKLET 02</span></div>
+  <h2>떡 · 전통 디저트 <span class="mono" style="font-size:.8rem;color:var(--ink-3)">__TOT02__장</span></h2>
+  <p>새로 받은 HWP 그대로입니다. 상품 14종이고 다섯 묶음으로 나뉩니다 — 더블치즈떡 4종, 더블크림떡 4종, 콩쑥찰떡, 절편 2종, 설기 3종.</p>
+  <div class="strip">__ST02__</div>
+  <div class="callout"><b>스토어에 이미 다 있습니다.</b> 전에 스마트스토어를 훑었을 때 떡류 16종이 올라와 있었습니다. 상품 링크와 대표 사진을 전부 끌어올 수 있습니다 — 01 책자에 했던 방식 그대로요.</div>
+</section>
+
+<section>
+  <div class="eyeb"><span>WAYFINDING</span></div>
+  <h2>지금 어느 책자인지 알려주기</h2>
+  <p>링크로 책자에 바로 들어오면 첫 화면이 표지인데, 표지는 두 책자가 똑같습니다. 상단바에 책자 이름을 띄워 구분합니다.</p>
+  <div class="cmp">
+    <div>
+      <h4>지금</h4>
+      <div class="bar"><span class="bm"><img src="__LOGO__" alt=""></span><span>온새누리장터</span><span class="sep"></span><span class="sm">공동구매 상담용 안내 · 2026</span></div>
+    </div>
+    <div>
+      <h4>변경 후</h4>
+      <div class="bar"><span class="bm"><img src="__LOGO__" alt=""></span><span>온새누리장터</span><span style="color:var(--ink-3)">·</span><span class="sup">떡 · 전통 디저트</span><span class="sep"></span><span class="sm">공동구매 상담용 안내</span></div>
+    </div>
+  </div>
+  <p>표지 디자인은 건드리지 않습니다. 상단바 한 줄이면 충분하고, 모든 페이지에서 계속 보입니다.</p>
+</section>
+
+<section>
+  <div class="eyeb"><span>LINKS</span></div>
+  <h2>주소</h2>
+  <p>도메인은 하나 그대로입니다. 뒤에 <code>#</code> 만 붙습니다.</p>
+  <div class="scroll"><table>
+    <thead><tr><th>주소</th><th>열리는 화면</th><th>쓰임</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">onsaynuri.com</td><td>진입부</td><td>전체 둘러보기. 명함·프로필에 거는 대표 주소</td></tr>
+      <tr><td class="mono">onsaynuri.com/#01</td><td>한우·한돈 책자 표지</td><td>해당 공급사 상담용</td></tr>
+      <tr><td class="mono">onsaynuri.com/#02</td><td>떡 책자 표지</td><td>해당 공급사 상담용</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note-line">주소에 쓸 이름은 <code>#01</code> 같은 번호 대신 <code>#tteok</code> 처럼 알아보기 쉬운 말로 바꿀 수 있습니다. 카톡에 붙었을 때 읽히는 쪽이 낫습니다.</p>
+  <div class="callout"><b>기존 링크는 그대로 삽니다.</b> 이미 보낸 <code>onsaynuri.com</code> 링크는 진입부로 열립니다. 끊기는 주소가 없습니다.</div>
+</section>
+
+<section>
+  <div class="eyeb"><span>DECISIONS</span></div>
+  <h2>정해 주실 것</h2>
+  <div class="scroll"><table>
+    <thead><tr><th>항목</th><th>지금 목업에서는</th><th>필요한 것</th></tr></thead>
+    <tbody>
+      <tr><td>공급사 이름</td><td>점선 자리표시</td><td>두 공급사의 표기할 이름</td></tr>
+      <tr><td>책자 이름</td><td><strong>한우 · 한돈 · 커피 · 아트</strong> / <strong>떡 · 전통 디저트</strong></td><td>이대로 쓸지, 다르게 부를지</td></tr>
+      <tr><td>진입부 제목</td><td>&ldquo;책자를 고르세요&rdquo;</td><td>문구 확인</td></tr>
+      <tr><td>주소 이름</td><td><code>#01</code> <code>#02</code></td><td>번호 vs 말(<code>#tteok</code>)</td></tr>
+      <tr><td>02 책자 사진</td><td>자리표시</td><td>스토어에서 끌어올지, 따로 주실지</td></tr>
+      <tr><td>인사말</td><td>두 책자 모두 유지</td><td>그대로 둘지 (표지와 문구가 겹침)</td></tr>
+    </tbody>
+  </table></div>
+  <p>이름이 아직 없어도 <strong>구조부터 올릴 수 있습니다.</strong> 품목군만으로 책자 구분은 되고, 공급사명은 나중에 한 줄 채우면 됩니다.</p>
+</section>
+
+<footer>온새누리(주) · 온새누리장터 공동구매 상담용 안내 · 구조 변경 목업. 화면은 <span class="mono">page.html</span> 의 실제 CSS 로 렌더됩니다.</footer>
+</div>

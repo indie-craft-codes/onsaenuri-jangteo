@@ -56,6 +56,15 @@ osascript -e 'tell application "Safari" to get source of document 1' | grep og:i
 ```
 이미지는 `<url>?type=f640_640` 으로 받으면 640px. CDN(shop-phinf.pstatic.net)은 curl 로도 받아진다.
 
+## 구조 변경안 (진행 중)
+
+공급사 2곳 체제로 가는 목업: `mockup.html` — https://onsaynuri.com/mockup.html
+`make_mockup.py` 가 `mockup-body.html` + `mockup_data.py` + `page.html` 의 실제 CSS 로 만든다.
+
+- 상품번호 앞 두 자리가 곧 공급사다 (`01-xxx` 선물세트 / `02-xxx` 떡류). 따로 분류가 필요 없다
+- 진입부(책자 선택)를 덱의 0번 장으로, 책자별 링크는 `#01` `#02` 해시
+- 원본 HWP: `docs/원본/`
+
 ## UI 가이드
 
 `ui-guide.html` — 색·서체·부품·사진 규칙·운영 절차. https://onsaynuri.com/ui-guide.html
