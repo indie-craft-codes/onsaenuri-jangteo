@@ -46,7 +46,7 @@ def storebar():
 def toc_row(s, n_visible):
     return f'''<a class="toc-item" href="#">
           <span class="tn">{s['code']}</span>
-          <span class="tt"><b>{s['group']}</b><i>공급사 <span class="ph">이름</span> · 상품 {n_visible}종</i></span>
+          <span class="tt"><b>{s['group']}</b><i>상품 {n_visible}종</i></span>
           {CHEV}
         </a>'''
 
