@@ -4,6 +4,14 @@
 from photo_data import PHOTOS
 from logo_data import LOGO_FULL, LOGO_MARK, LOGO_FULL_W, LOGO_FULL_H
 
+# 책자 — 상품번호 앞 두 자리가 곧 공급사다 (01-xxx / 02-xxx)
+BOOKLETS = [
+    dict(code="01", title="한우 · 한돈 · 커피 · 아트"),
+    dict(code="02", title="떡 · 전통 디저트"),
+]
+TOC_TITLE = "책자를 고르세요"
+TOC_LEDE  = "공급사별로 나누어 담았습니다."
+
 STORE_URL = "https://m.smartstore.naver.com/onsaynuri"   # 온새누리장터 스마트스토어
 
 # 상품별 개별 링크. 상품번호 -> URL. 비어 있으면 스토어 홈(STORE_URL)으로 연결된다.
@@ -65,6 +73,67 @@ PRODUCTS = [
          name="이중섭 판화 컬렉션 20종", sub="실크스크린 아트에디션 4호",
          catch="선과 색의 강도 속에 근원적 인간 감정과 한국적 정서를 담아낸다.",
          tag="2026, 이중섭 110주년 기념 ~ (액자포함)", shots=3),
+    # ── 공급사 02 · 떡 · 전통 디저트 ──────────────────────────────
+    dict(no="02-001(A)", cat="떡", kicker="더블치즈떡",
+         name="더블치즈", sub="240g · 30g×8개",
+         catch="모짜렐라 자연치즈가 듬뿍! 국산쌀로 만든 치즈떡",
+         tag="기호에 맞게 시즈닝, 소스와 곁들이면 사먹는 간식 안부러운 떡구이 완성!", shots=2),
+    dict(no="02-001(B)", cat="떡", kicker="더블치즈떡",
+         name="더블고구마", sub="240g · 30g×8개",
+         catch="달콤한 고구마앙금 듬뿍! 국산쌀로 만든 고구마떡",
+         tag="기호에 맞게 시즈닝, 소스와 곁들이면 사먹는 간식 안부러운 떡구이 완성!", shots=1),
+    dict(no="02-001(C)", cat="떡", kicker="더블치즈떡",
+         name="더블옥수수", sub="240g · 30g×8개",
+         catch="옥수수와 자연치즈 듬뿍! 국산쌀로 만든 옥수수떡",
+         tag="기호에 맞게 시즈닝, 소스와 곁들이면 사먹는 간식 안부러운 떡구이 완성!", shots=1),
+    dict(no="02-001(D)", cat="떡", kicker="더블치즈떡",
+         name="용암더블", sub="240g · 30g×8개",
+         catch="용암처럼 빨간치즈가 흐르는~! 용암더블치즈떡",
+         tag="기호에 맞게 시즈닝, 소스와 곁들이면 사먹는 간식 안부러운 떡구이 완성!", shots=2),
+    dict(no="02-002(A)", cat="떡", kicker="더블크림떡",
+         name="치즈크림", sub="800g · 40g×20개",
+         catch="쫀득한 찹쌀떡 속에 사르르 녹는 크림치즈 한 스푼",
+         tag="식물성 크림으로 더 가볍게, 더 깔끔하게, 부담없이 즐기는 쫀득한 안심 디저트", shots=1),
+    dict(no="02-002(B)", cat="떡", kicker="더블크림떡",
+         name="옥수수크림", sub="800g · 40g×20개",
+         catch="쫀득한 찹쌀떡 속에 생크림과 톡톡 씹히는 옥수수알",
+         tag="식물성 크림으로 더 가볍게, 더 깔끔하게, 부담없이 즐기는 쫀득한 안심 디저트", shots=1),
+    dict(no="02-002(C)", cat="떡", kicker="더블크림떡",
+         name="티라미슈크림", sub="800g · 40g×20개",
+         catch="한입 베어무는 순간 터지는 마스카포에 티라미슈크림",
+         tag="식물성 크림으로 더 가볍게, 더 깔끔하게, 부담없이 즐기는 쫀득한 안심 디저트", shots=1),
+    dict(no="02-002(D)", cat="떡", kicker="더블크림떡",
+         name="초코크림", sub="800g · 40g×20개",
+         catch="쫄깃한 찰떡 속에 생크림과 초코칩 한입 먹는 순간, 디저트로 딱 떠오르는 맛",
+         tag="식물성 크림으로 더 가볍게, 더 깔끔하게, 부담없이 즐기는 쫀득한 안심 디저트", shots=2),
+    dict(no="02-003", cat="떡", kicker="달콤한 팥앙금이 가득",
+         name="콩쑥찰떡", sub="800g · 40g×20개",
+         catch="어른들 선물, 가족과 함께 할 수 있는 간식으로 찰떡 궁합",
+         tag="고소한 콩가루 옷을 입은 콩쑥 찰떡은 쑥향에 달콤한 팥 앙금이 더해져 남녀노소 모두가 좋아하는 인절미",
+         shots=1),
+    dict(no="02-004(A)", cat="떡", kicker="말랑말랑 전통",
+         name="백절편", sub="1봉 1kg내 소포장",
+         catch="티없이 맑은 절편! 보기만 해도 말랑함이 느껴지는 쌀떡",
+         tag="농부가 쌀 농사부터 떡 제조까지 전통 방식으로 만든 절편", shots=1),
+    dict(no="02-004(B)", cat="떡", kicker="말랑말랑 전통",
+         name="쑥절편", sub="1봉 1kg내 소포장",
+         catch="국산 쌀과 쑥으로 만든 향긋한 쑥절편",
+         tag="농부가 쌀 농사부터 떡 제조까지 전통 방식으로 만든 절편", shots=1),
+    dict(no="02-005(A)", cat="떡", kicker="설기 3종",
+         name="단호박 호두설기", sub="1,020g · 60g×17개",
+         catch="구수한 맛에 달콤함과 고소함을 더하는 단호박 호두설기",
+         tag="국산 쌀과 단호박(수입산)으로 고운 색을 낸 떡, 설탕과 호두까지 더해져 달콤하고 고소한 맛",
+         shots=1),
+    dict(no="02-005(B)", cat="떡", kicker="설기 3종",
+         name="쑥설기", sub="1,020g · 60g×17개",
+         catch="쑥의 향긋함을 담은 포근포근 한 쑥설기",
+         tag="국산 쑥과 국산 멥쌀로 만든 향긋한 쑥설기로 쑥향기 가득 품은 설기",
+         shots=1),
+    dict(no="02-005(C)", cat="떡", kicker="설기 3종",
+         name="밤설기", sub="1,020g · 60g×17개",
+         catch="멥쌀과 달콤한 밤이 들어간 포근포근 한 밤설기",
+         tag="국산 쌀과 밤(수입산)으로 은은한 단맛을 낸 밤설기로 적당한 단맛으로 입맛 끌어당기는 떡",
+         shots=1),
 ]
 
 def storebar(no=None):
@@ -172,50 +241,95 @@ CLOSING = f'''        <article class="slide backcov" data-title="맺음말">
         </article>'''
 
 # hide=True 인 상품은 페이지에서 빠진다 (데이터는 위에 그대로 남음)
-VISIBLE = [p for p in PRODUCTS if not p.get("hide")]
+def visible_of(code):
+    return [p for p in PRODUCTS if p["no"].startswith(code + "-") and not p.get("hide")]
+
 HIDDEN = [p for p in PRODUCTS if p.get("hide")]
 
-slides = [COVER, GREETING]
-for i, p in enumerate(VISIBLE):
-    slides.append(product_page(p, i + 3))
-slides.append(CLOSING)
+CHEV = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" '
+        'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>')
 
-# 1) page.html — 본문만 (Artifact 배포용). track 안쪽만 교체하고 나머지는 유지.
-HEAD_MARK = '<div class="track" id="track">'
-TAIL_MARK = '    </div><!-- /track -->'
+
+def toc_slide():
+    """진입부 — 책자 선택. 책자마다 한 벌씩 들어간다(표지에서 오른쪽으로 밀면 여기로)."""
+    rows = []
+    for b in BOOKLETS:
+        n = len(visible_of(b["code"]))
+        rows.append(
+            f'            <a class="toc-item" href="#{b["code"]}">\n'
+            f'              <span class="tn">{b["code"]}</span>\n'
+            f'              <span class="tt"><b>{b["title"]}</b><i>상품 {n}종</i></span>\n'
+            f'              {CHEV}\n'
+            f'            </a>')
+    inner = "\n".join(rows)
+    return (
+        '        <article class="slide toc" data-title="목차">\n'
+        '          <div class="pg">\n'
+        '            <div class="eyebrow"><span>CONTENTS</span><i class="ln"></i></div>\n'
+        f'            <h2 class="t">{TOC_TITLE}</h2>\n'
+        f'            <p class="lede">{TOC_LEDE}</p>\n'
+        '            <div class="body">\n'
+        '              <div class="toc-list">\n'
+        f'{inner}\n'
+        '              </div>\n'
+        '            </div>\n'
+        '            <div class="folio"><span>온새누리장터</span><span class="fl"></span>'
+        '<span>공동구매 상담용 안내</span></div>\n'
+        '          </div>\n'
+        '        </article>')
+
+
+tracks, counts = [], []
+for b in BOOKLETS:
+    slides = []
+    if len(BOOKLETS) > 1:          # 책자가 하나면 진입부를 만들지 않는다
+        slides.append(toc_slide())
+    slides += [COVER, GREETING]
+    vis = visible_of(b["code"])
+    for n, p in enumerate(vis):
+        slides.append(product_page(p, n + 3))
+    slides.append(CLOSING)
+    pages = len(slides) - (1 if len(BOOKLETS) > 1 else 0)
+    counts.append((b, len(vis), pages))
+    tracks.append(
+        f'    <div class="track" data-booklet="{b["code"]}" data-title="{b["title"]}">\n'
+        + "\n".join(slides) + '\n    </div>')
+
+BODY = "\n".join(tracks)
+
+# 1) page.html — 본문만 (Artifact 배포용). TRACKS 사이만 교체하고 나머지는 유지.
+HEAD_MARK = '    <!-- TRACKS -->'
+TAIL_MARK = '    <!-- /TRACKS -->'
 doc = open('page.html', encoding='utf-8').read()
 head = doc.split(HEAD_MARK)[0] + HEAD_MARK + "\n"
 tail = TAIL_MARK + doc.split(TAIL_MARK)[1]
-page = head + "\n".join(slides) + "\n" + tail
+page = head + BODY + "\n" + tail
 open('page.html', 'w', encoding='utf-8').write(page)
 
 # 2) index.html — 완전한 HTML 문서 (GitHub Pages 배포용)
+total = sum(c[1] for c in counts)
+desc = f"온새누리장터 공동구매 상담용 안내 — 책자 {len(BOOKLETS)}권 · 상품 {total}종"
 page = page.replace('<meta charset="utf-8">\n', '')
 h, _, rest = page.partition('</style>')
 doc_head = h.strip() + "\n</style>"
 doc_body = rest.strip()
-open('index.html', 'w', encoding='utf-8').write(f'''<!doctype html>
-<html lang="ko">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="온새누리장터 공동구매 상담용 안내 — 상품 10종">
-<meta name="theme-color" content="#0E5C4F" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0D100F" media="(prefers-color-scheme: dark)">
-<meta property="og:title" content="온새누리장터 공동구매 안내">
-<meta property="og:description" content="온새누리장터 공동구매 상담용 안내 — 상품 10종">
-<meta property="og:type" content="website">
-<link rel="icon" href="favicon.ico" sizes="any">
-<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
-<link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
-{doc_head}
-</head>
-<body>
-{doc_body}
-</body>
-</html>
-''')
-print("slides:", len(slides))
+HTML = (
+'<!doctype html>\n<html lang="ko">\n<head>\n<meta charset="utf-8">\n'
+'<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n'
+f'<meta name="description" content="{desc}">\n'
+'<meta name="theme-color" content="#0E5C4F" media="(prefers-color-scheme: light)">\n'
+'<meta name="theme-color" content="#0D100F" media="(prefers-color-scheme: dark)">\n'
+'<meta property="og:title" content="온새누리장터 공동구매 안내">\n'
+f'<meta property="og:description" content="{desc}">\n'
+'<meta property="og:type" content="website">\n'
+'<link rel="icon" href="favicon.ico" sizes="any">\n'
+'<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">\n'
+'<link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">\n'
+'<link rel="apple-touch-icon" href="apple-touch-icon.png">\n'
+f'{doc_head}\n</head>\n<body>\n{doc_body}\n</body>\n</html>\n')
+open('index.html', 'w', encoding='utf-8').write(HTML)
+
+for b, nvis, pages in counts:
+    print(f'  {b["code"]} {b["title"]:22s} 상품 {nvis:2d}종 · {pages}장')
 if HIDDEN:
-    print("숨김:", ", ".join(f'{p["no"]} {p["name"]}' for p in HIDDEN))
+    print("  숨김:", ", ".join(f'{p["no"]} {p["name"]}' for p in HIDDEN))

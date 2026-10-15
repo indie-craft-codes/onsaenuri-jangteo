@@ -175,7 +175,7 @@ footer{ margin-top:5rem; padding-top:1.4rem; border-top:1px solid var(--rule); f
 .ui .shots.s1{ grid-template-columns:minmax(0,12em); justify-content:center; }
 .ui .shots.s2{ grid-template-columns:1fr 1fr; }
 .ui .shots.s3{ grid-template-columns:repeat(3,1fr); }
-.ui .shot{ margin:0; aspect-ratio:4/5; border:1px dashed var(--rule); border-radius:.28em;
+.ui .shot{ margin:0; aspect-ratio:4/4.7; border:1px dashed var(--rule); border-radius:.28em;
   background:var(--accent-soft);
   display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.4em;
   color:var(--ink-3); min-height:0; }
@@ -263,7 +263,7 @@ footer{ margin-top:5rem; padding-top:1.4rem; border-top:1px solid var(--rule); f
   <p class="sub">공동구매 상담용 안내 페이지의 색·서체·부품과, 상품을 더하거나 고칠 때의 규칙을 정리했습니다. 아래 예시는 설명용으로 다시 그린 것이 아니라 실제 페이지의 CSS를 그대로 가져와 렌더한 것입니다.</p>
   <div class="meta">
     <span><a href="https://onsaynuri.com">onsaynuri.com</a></span>
-    <span>10 페이지 · 상품 7종</span>
+    <span>책자 2권 · 상품 21종</span>
     <span>2026.09 기준</span>
   </div>
   <nav class="toc">
@@ -373,7 +373,7 @@ footer{ margin-top:5rem; padding-top:1.4rem; border-top:1px solid var(--rule); f
 <section id="anatomy">
   <div class="eyeb"><span>ANATOMY</span></div>
   <h2>상품 페이지 구조</h2>
-  <p>여덟 개 상품 페이지가 모두 같은 뼈대를 씁니다. 원본 HWP 의 한 칸짜리 표를 세로 편집으로 다시 짠 것으로, 위에서 아래로 <strong>분류 → 이름 → 근거 → 그림 → 한마디 → 행동</strong> 순서입니다.</p>
+  <p>모든 상품 페이지가 같은 뼈대를 씁니다. 원본 HWP 의 한 칸짜리 표를 세로 편집으로 다시 짠 것으로, 위에서 아래로 <strong>분류 → 이름 → 근거 → 그림 → 한마디 → 행동</strong> 순서입니다.</p>
   <div class="anat">
     <div class="row"><div class="lab">eyebrow / pno</div><div class="box accent">커피 ───────────── 01-001</div></div>
     <div class="row"><div class="lab">kicker-p</div><div class="box accent">ILJO 시그니처</div></div>
@@ -538,11 +538,12 @@ git add -A &amp;&amp; git commit -m "수정" &amp;&amp; git push</pre>
   <div class="scroll"><table>
     <thead><tr><th>구성</th><th>내용</th></tr></thead>
     <tbody>
-      <tr><td>페이지</td><td>10장 — 표제부 · 인사말 · 상품 7 · 맺음말</td></tr>
+      <tr><td>책자</td><td>2권 — 01 한우·한돈·커피·아트(10장) / 02 떡·전통 디저트(17장)</td></tr>
+      <tr><td>진입부</td><td>책자 선택 화면. 책자마다 한 벌씩. 주소는 <span class="mono">#01</span> <span class="mono">#02</span></td></tr>
+      <tr><td>상품</td><td>01 — 7종 / 02 — 14종</td></tr>
       <tr><td>숨김</td><td>01-002 한돈3종세트, 01-005 찐보리굴비, 01-006 매콤탱쭈꾸미 (스토어 미등록)</td></tr>
-      <tr><td>사진</td><td>콜드브루 2 · 왕돈마호크 3 · 이중섭 3 · 나머지 각 1</td></tr>
-      <tr><td>빈 칸</td><td>없음</td></tr>
-      <tr><td>용량</td><td>약 1.2MB (움직이는 커피 사진이 절반)</td></tr>
+      <tr><td>사진</td><td>01 — 콜드브루 2 · 왕돈마호크 3 · 이중섭 3 · 나머지 1 / <strong>02 — 아직 없음</strong></td></tr>
+      <tr><td>빈 칸</td><td>02 책자 전부 (사진 대기)</td></tr>
     </tbody>
   </table></div>
 </section>
