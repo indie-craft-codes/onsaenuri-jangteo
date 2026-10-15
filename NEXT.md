@@ -1,61 +1,51 @@
-# 다음 작업 — 공급사 2곳 구조 구현
+# 공급사 2곳 구조 — 완료
 
-목업 합의 완료: https://onsaynuri.com/mockup.html
-아직 코드는 손대지 않았다. `build.py` / `page.html` 은 공급사 1곳 상태 그대로다.
+반영됨: https://onsaynuri.com (`#01` / `#02`)
+남은 것은 아래 「미결」 두 줄뿐이다.
 
-## 확정된 것
+## 미결
 
-| 항목 | 결정 |
+| 항목 | 현재 값 |
 |---|---|
-| 공급사 이름 | 진입부에 넣지 않음. 품목군 + 상품 수만 |
-| 주소 | `onsaynuri.com` → 진입부, `#01` `#02` → 해당 책자 표지 |
-| 02 사진·링크 | 스마트스토어에서 끌어옴 (01 때와 같은 방식) |
-| 인사말 | 두 책자 모두 유지 |
-| 책자 이름 | `한우 · 한돈 · 커피 · 아트` / `떡 · 전통 디저트` (잠정) |
-| 진입부 제목 | "책자를 고르세요" (잠정) |
+| 책자 이름 | `한우 · 한돈 · 커피 · 아트` / `떡 · 전통 디저트` (잠정 — `build.py` 의 `BOOKLETS`) |
+| 진입부 제목 | "책자를 고르세요" (잠정 — `build.py` 의 `TOC_TITLE`/`TOC_LEDE`) |
 
-## 핵심 전제
+## 스토어에서 상품 정보 긁는 법 (2026-10 기준)
 
-**상품번호 앞 두 자리가 곧 공급사다.** `01-xxx` 선물세트 / `02-xxx` 떡류.
-별도 분류 필드가 필요 없다 — `no.startswith(code)` 로 가른다.
+**curl/Playwright 는 429, 크롬 자동화 도구는 naver.com 도메인 차단, WebFetch 도 차단.
+크롬에는 네이버 로그인 쿠키가 없다(NID_AUT/NID_SES 없음). Safari 만 된다.**
+로그인은 필요 없었다 — 전에 로그인 화면으로 튄 건 일시적 봇 차단이었다.
 
-## 순서
+```
+osascript -e 'tell application "Safari" to make new document with properties {URL:"https://smartstore.naver.com/onsaynuri/category/ALL"}'
+sleep 7
+osascript -e 'tell application "Safari" to get source of document 1' > store.html
+```
 
-1. **`build.py` 를 책자 단위로**
-   - `BOOKLETS = [{"code":"01","title":"한우 · 한돈 · 커피 · 아트"}, {"code":"02","title":"떡 · 전통 디저트"}]`
-   - `PRODUCTS` 에 02 상품 14종 추가 (원문은 `docs/원본/공급사02-떡류-2026-07.hwp`,
-     파서는 아래 「HWP 읽기」)
-   - 책자마다 track 하나씩 출력. **각 track 은 자기 TOC 슬라이드로 시작**한다
-     (TOC 를 복제해야 어느 책자에서든 표지에서 오른쪽으로 밀면 목차로 빠진다)
+목록 HTML 안의 `window.__PRELOADED_STATE__` 를 파싱하면
+`categoryProducts.simpleProducts[]` 에 **상품마다 `id`·`name`·`salePrice`·
+`representativeImageUrl`·`optionalImageUrls` 가 한 객체 안에** 들어 있다.
+→ 이걸 쓰면 01 때 같은 「이웃 상품 사진 섞임」이 구조적으로 불가능하다.
+개별 상품 페이지를 열어 og:image 를 읽을 필요가 없다.
 
-2. **`page.html` — 진입부·해시·상단바**
-   - `.toc` 슬라이드 + `.toc-list` / `.toc-item` / `.tn` / `.tt` / `.lede` CSS
-     (목업 `mockup-body.html` 의 `/* 진입부 */` 블록이 완성본이다. 그대로 옮기면 된다)
-   - JS: `decks` = track 목록, 활성 track 하나만 표시(`hidden`), 인덱스는 track 안에서
-   - 해시 `#01` `#02` → 해당 track 의 1번(표지)으로. 해시 없으면 첫 track 의 0번(TOC)
-   - TOC 항목 클릭 → 해시 변경 → track 전환
-   - 상단바에 현재 책자명 표시
-   - 점·쪽수는 **TOC 를 빼고** 센다. TOC 에서는 쪽수 자리에 "목차", 점 전부 꺼짐, 이전 비활성
-   - 책자가 1개면 TOC 를 아예 만들지 않고 바로 표지로 (`len(BOOKLETS) == 1`)
+- 그 값은 JS 리터럴이라 `undefined` 가 섞여 있다. 문자열 밖의 `undefined` 를
+  `null` 로 바꾼 뒤 `json.loads`. 중괄호 짝을 세어 끝을 찾는다
+- 이미지는 `<url>?type=f640_640`, CDN(shop-phinf.pstatic.net)은 curl 로 받아진다
+- Safari 의 `get source of document 1` 은 **처음 받은 HTML** 이다. 하이드레이션
+  뒤의 DOM 이 필요하면 `do JavaScript` (이 기기는 허용돼 있다)
+- 상품 **옵션명**은 끝내 못 읽었다. 드롭다운을 눌러야 로드되는데 JS 클릭이 안 먹었다
 
-3. **02 상품 스토어 대조** — Safari 로 (curl/Playwright 는 429)
-   ```
-   osascript -e 'tell application "Safari" to set URL of document 1 to "https://m.smartstore.naver.com/onsaynuri/category/ALL"'
-   osascript -e 'tell application "Safari" to get source of document 1' > out.html
-   ```
-   - 상품 페이지를 **개별로** 열어 `og:image` 를 읽을 것.
-     목록 HTML 에서 링크 주변을 긁으면 이웃 상품 사진이 섞인다 (01 때 실제로 겪음)
-   - 이미지는 `<url>?type=f640_640`, CDN(shop-phinf.pstatic.net)은 curl 로 받아진다
-   - 스토어에 없는 품목은 지우지 말고 `hide=True`. HWP 의 `용암더블(02-001D)` 은
-     전에 훑은 목록에서 못 봤다 — 확인 필요
+## 02 사진·링크 결과
 
-4. **검증 후 배포**
-   - 두 책자 전 페이지 넘침 0, 깨진 이미지 0, `#` 링크 0
-   - 라이트/다크, iPhone SE·14 Pro, 데스크톱
-   - 해시 직접 진입 3가지(`없음` / `#01` / `#02`) 동작
-   - `python3 make_guide.py` 도 다시 돌려 UI 가이드 갱신
+14종 전부 개별 상품 페이지로 연결. 단 **더블고구마·더블옥수수·용암더블은
+개별 판매가 없어** `더블떡 4종 5봉 세트`(13727764883) 로 연결했다.
+사진은 네 맛을 육안으로 갈랐다 — 보라색+고구마 / 옥수수알+옥수수대 /
+붉은 소가 흘러나오는 것(용암) / 치즈 늘어나는 것.
+
+`용암더블` 은 스토어에 품목명으로는 없지만 4종 세트 구성에 들어 있어 숨기지 않았다.
 
 ## HWP 읽기
+
 
 `hwp5txt` 가 없으므로 직접 파싱한다. 레시피는 세션에서 쓴 스크립트 그대로:
 olefile 로 열고 `FileHeader` 36~40 바이트의 압축 플래그 확인 →
