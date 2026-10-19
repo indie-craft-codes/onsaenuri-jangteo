@@ -134,7 +134,6 @@ for k, v in [('__DEMO__', DEMO), ('__LOGO__', LOGO_MARK), ('__ENTRY__', ENTRY),
              ('__TOT01__', str(tot01)), ('__TOT02__', str(tot02))]:
     body = body.replace(k, v)
 
-open('mockup-page.html', 'w', encoding='utf-8').write(body)
 h, _, rest = body.partition('</style>')
 open('mockup.html', 'w', encoding='utf-8').write(f'''<!doctype html>
 <html lang="ko">

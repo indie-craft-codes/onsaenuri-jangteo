@@ -7,7 +7,6 @@
 - `index.html` — GitHub Pages 배포본 (완전한 HTML 문서, 자동 생성)
 - `page.html` — 본문만 담긴 원본. 레이아웃·스타일·스크립트를 여기서 고친다.
 - `build.py` — `PRODUCTS` 수정 후 `python3 build.py` 실행하면 `page.html` 의 페이지 부분과 `index.html` 전체를 갱신한다.
-- `index-3d.html` — 3D 책 넘김 방식 시안 (미사용)
 
 ## 도메인
 
@@ -56,9 +55,9 @@ osascript -e 'tell application "Safari" to get source of document 1' | grep og:i
 ```
 이미지는 `<url>?type=f640_640` 으로 받으면 640px. CDN(shop-phinf.pstatic.net)은 curl 로도 받아진다.
 
-## 구조 변경안 (진행 중)
+## 공급사 2곳 구조
 
-공급사 2곳 체제로 가는 목업: `mockup.html` — https://onsaynuri.com/mockup.html
+합의에 쓴 목업(기록용): `mockup.html` — https://onsaynuri.com/mockup.html
 `make_mockup.py` 가 `mockup-body.html` + `mockup_data.py` + `page.html` 의 실제 CSS 로 만든다.
 
 - 상품번호 앞 두 자리가 곧 공급사다 (`01-xxx` 선물세트 / `02-xxx` 떡류). 따로 분류가 필요 없다
@@ -79,7 +78,7 @@ osascript -e 'tell application "Safari" to get source of document 1' | grep og:i
 
 ## 남은 자리표시
 
-- 상품별 두 번째·세 번째 사진, QR코드 이미지
+- 맺음말 QR — 지금은 손으로 그린 SVG 자리표시다. 실제 QR 이미지로 바꿔야 한다
 
 ## 스토어 상품 목록 확인 방법
 

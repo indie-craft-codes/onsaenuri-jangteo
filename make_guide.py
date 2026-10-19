@@ -52,10 +52,7 @@ print("떼어온 규칙:", len(lifted), "개")
 body = open('ui-guide-body.html', encoding='utf-8').read()
 body = body.replace('__DEMO_CSS__', DEMO_CSS).replace('__LOGO__', LOGO_MARK)
 
-# 1) Artifact 용 (본문만)
-open('ui-guide-page.html', 'w', encoding='utf-8').write(body)
-
-# 2) GitHub Pages 용 (완전한 문서)
+# GitHub Pages 용 (완전한 문서)
 h, _, rest = body.partition('</style>')
 open('ui-guide.html', 'w', encoding='utf-8').write(f'''<!doctype html>
 <html lang="ko">
